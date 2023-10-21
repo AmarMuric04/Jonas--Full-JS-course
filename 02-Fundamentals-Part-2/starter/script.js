@@ -110,27 +110,74 @@
 // }
 // console.log(fruitProcessor(2, 3));
 
+// const calcAge = function (birthyear) {
+//   return 2037 - birthyear;
+// };
+
+// const yearsUntilRetirement = function (birthyear, firstName) {
+//   const age = calcAge(birthyear);
+//   const retirement = 65 - age;
+
+//   if (retirement > 0) {
+//     //return immediatelly stops an if statement.
+
+//     console.log(`${firstName} retires in ${retirement} years`);
+//     return retirement;
+//   } else {
+//     console.log(`${firstName} has already retired`);
+//     return -1;
+//   }
+
+//   return retirement;
+//   //   return `${firstName} retires in ${retirement} years`;
+// };
+
+// console.log(yearsUntilRetirement(2004, "Amar"));
+// console.log(yearsUntilRetirement(1950, "Murga"));
+
+//ARRAYS
+
+// const friend1 = "Michael";
+// const friend2 = "Steven";
+// const friend3 = "Peter";
+
+// const friends = ["Michael", "Steven", "Peter"];
+// console.log(friends);
+
+// const years = new Array(1999, 2000, 2001, 2002);
+
+// console.log(friends[0]);
+// console.log(friends[1]);
+// console.log(friends[2]);
+
+// console.log(friends.length);
+// console.log(friends[friends.length - 1]);
+
+// friends[2] = "Jay";
+// console.log(friends);
+
+// // friends = ["Bob", "Alice"]; <-- can not do
+
+// const firstName = "Amar";
+// const amar = [firstName, "Muric", 2037 - 2004, "student", friends];
+
+// console.log(amar);
+// console.log(amar.length);
+
 const calcAge = function (birthyear) {
   return 2037 - birthyear;
 };
+const years = [1990, 1967, 2002, 2010, 2018];
 
-const yearsUntilRetirement = function (birthyear, firstName) {
-  const age = calcAge(birthyear);
-  const retirement = 65 - age;
+const age1 = calcAge(years[0]);
+const age2 = calcAge(years[1]);
+const age3 = calcAge(years[years.length - 1]);
 
-  if (retirement > 0) {
-    //return immediatelly stops an if statement.
+console.log(age1, age2, age3);
 
-    console.log(`${firstName} retires in ${retirement} years`);
-    return retirement;
-  } else {
-    console.log(`${firstName} has already retired`);
-    return -1;
-  }
-
-  return retirement;
-  //   return `${firstName} retires in ${retirement} years`;
-};
-
-console.log(yearsUntilRetirement(2004, "Amar"));
-console.log(yearsUntilRetirement(1950, "Murga"));
+const ages = [
+  calcAge(years[0]),
+  calcAge(years[1]),
+  calcAge(years[years.length - 1]),
+];
+console.log(ages);
