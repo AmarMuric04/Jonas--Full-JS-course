@@ -277,3 +277,101 @@
 //   `${amar.firstName} has ${amar.friends.length} friends, and his best friend is called ${amar.friends[0]}`
 // );
 // //DONE!
+// const amar = {
+//   firstName: "Amar",
+//   lastName: "Muric",
+//   birthyear: 2004, // <-- number value
+//   job: "student",
+//   friends: ["Michael", "Steven", "Peter"], //  <-- aray value
+//   hasDriversLicense: false, // <-- boolean value
+
+//   // calcAge: function () {
+//   //   return 2036 - this.birthyear; // <-- function value
+//   // },
+
+//   // calcAge: function () {
+//   //   // console.log(this);
+//   //   return 2036 - this.birthyear; // <-- function value
+//   // },
+//   calcAge: function () {
+//     this.age = 2036 - this.birthyear; // <-- function value
+//     return this.age;
+//   },
+//   // function calcAge() {
+//   //   return 2036 - this.birthyear; <-- cant do this
+//   // },
+// };
+// // console.log(amar["calcAge"](amar.birthyear)); // <-- bracket notation
+// console.log(amar.calcAge()); // <-- dot notation
+// //we calculate the age once, and then the computer knows what the age is, so we can
+// //call it.
+// console.log(amar.age);
+// console.log(amar.age);
+// console.log(amar.age);
+
+//CHALLENGE
+//Amar is a 32 year old student, born in Serbia, has 3 friends, best friend is steven, and he has a/no drivers license.
+
+// console.log();
+// const amar = {
+//   firstName: "Amar",
+//   lastName: "Muric",
+//   birthyear: 2004, // <-- number value
+//   job: "student",
+//   friends: ["Michael", "Steven", "Peter"], //  <-- aray value
+//   hasDriversLicense: false,
+
+//   // driversLicense: function () {
+//   //   this.hasDriversLicense === true
+//   //     ? (this.hasDriversLicense = "a drivers license")
+//   //     : (this.hasDriversLicense = "no drivers license");
+//   // },
+//   calcAge: function () {
+//     this.age = 2036 - this.birthyear; // <-- function value
+//     return this.age;
+//   },
+//   getSummary: function () {
+//     // this.driversLicense();
+//     console.log(
+//       `${this.firstName} is a ${this.calcAge()} year old ${
+//         this.job
+//       }, born in ${(this.location = "Serbia")}, has ${
+//         this.friends.length
+//       } friends, best friend is ${this.friends[1]} and he has ${
+//         this.hasDriversLicense ? "a" : "no"
+//       } driver's license!`
+//     );
+//   },
+// };
+
+// amar.getSummary();
+
+// const murga = {
+//   firstName: "Murga",
+//   lastName: "Muric",
+//   birthyear: 2010, // <-- number value
+//   job: "professor",
+//   friends: ["Michael", "Mark", "Peter"], //  <-- aray value
+//   hasDriversLicense: true,
+
+//   driversLicense: function () {
+//     this.hasDriversLicense === true
+//       ? (this.hasDriversLicense = "a drivers license")
+//       : (this.hasDriversLicense = "no drivers license");
+//   },
+//   calcAge: function () {
+//     this.age = 2036 - this.birthyear; // <-- function value
+//     return this.age;
+//   },
+// };
+// murga.driversLicense();
+// console.log(
+//   `${murga.firstName} is a ${murga.calcAge()} year old ${
+//     murga.job
+//   }, born in ${(murga.location = "Serbia")}, has ${
+//     murga.friends.length
+//   } friends, best friend is ${murga.friends[1]} and he has ${
+//     murga.hasDriversLicense
+//   }.`
+// );
+// // CHALLENGE DONE
