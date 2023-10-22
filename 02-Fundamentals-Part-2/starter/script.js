@@ -375,3 +375,122 @@
 //   }.`
 // );
 // // CHALLENGE DONE
+
+// FOR AND WHILE LOOPS
+
+// console.log("Lifting weights repetition 1");
+// console.log("Lifting weights repetition 2");
+// console.log("Lifting weights repetition 3");
+// console.log("Lifting weights repetition 4");
+// console.log("Lifting weights repetition 5");
+// console.log("Lifting weights repetition 6");
+// console.log("Lifting weights repetition 7");
+// console.log("Lifting weights repetition 8");
+// console.log("Lifting weights repetition 9");
+// console.log("Lifting weights repetition 10");
+
+// for (let rep = 1; rep <= 10; rep++) {
+//   console.log(`Lifting weights repetition ${rep}`);
+// }
+
+// const amarArray = [
+//   "Amar",
+//   "Muric",
+//   2037 - 2004,
+//   "student",
+//   ["Michael", "Steven", "Peter"],
+//   true,
+// ];
+
+// //FOR LOOP
+// const types = [];
+
+// for (let i = 0; i < amarArray.length; i++) {
+//   console.log(amarArray[i], typeof amarArray[i]);
+
+//   //FILLING TYPES ARRAY
+//   // types[i] = typeof amarArray[i];
+//   types.push(typeof amarArray[i]);
+// }
+// //READING FROM amarArray AND CREATING A NEW ARRAY
+// console.log(types);
+
+// const years = [1991, 2007, 2004, 2020];
+// console.log(years);
+// const ages = [];
+// for (i = 0; i < years.length; i++) {
+//   ages.push(2037 - years[i]);
+// }
+// console.log(ages);
+
+//continue and break statement
+// const amarArray = [
+//   "Amar",
+//   "Muric",
+//   2037 - 2004,
+//   "student",
+//   [("Michael", "Steven", "Peter")],
+//   true,
+// ];
+// // console.log("-=- ONLY STRINGS -=-");
+// // for (i = 0; i < amarArray.length; i++) {
+// //   if (typeof amarArray[i] !== "string") continue;
+// //   console.log(amarArray[i], typeof amarArray[i]);
+// // }
+// console.log("-=- BREAK WHEN NUMBER -=-");
+// for (i = 0; i < amarArray.length; i++) {
+//   if (typeof amarArray[i] === "number") break;
+//   console.log(amarArray[i], typeof amarArray[i]);
+// }
+// // ONLY shows 0 1 2 4
+// for (i = 0; i <= 10; i++) {
+//   if (i === 3) continue;
+//   else if (i === 5) break;
+//   else console.log(i);
+// }
+
+//REVERSE LOOPING AN ARRAY
+// const amarArray = [
+//   "Amar",
+//   "Muric",
+//   2037 - 2004,
+//   "student",
+//   ["Michael", "Steven", "Peter"],
+//   true,
+// ];
+// // const newArray = amarArray.reverse();
+// // for (i = 0; i < newArray.length; i++) {
+// //   if (typeof newArray[i] === "boolean") break;
+// //   console.log(newArray[i], typeof newArray[i]);
+// // }
+
+// for (let i = amarArray.length - 1; i >= 0; i--) {
+//   console.log(i, amarArray[i]);
+// }
+// //LOOPS INSIDE OF LOOPS
+// for (let exercise = 1; exercise < 4; exercise++) {
+//   console.log(`--------- Starting exercise  ${exercise}----------`);
+//   for (let set = 1; set < 6; set++) {
+//     console.log(`Exercise ${exercise}: ${set} set`);
+//     // for (let rep = 1; rep < 3; rep++) {
+//     //   console.log(`done ${rep} reps`);
+//     // }
+//   }
+// }
+// // THE WHILE LOOP
+
+// //WHEN WE DONT KNOW HOW MANY TIMES WE WANT TO LOOP SOMETHING, WE USE WHILE
+// //OTHERWISE WE USE WHJILE LOOP.
+// let exercise = 1;
+// while (exercise <= 5) {
+//   console.log(`WHILE: ${exercise} reps`);
+//   exercise++;
+// }
+// let roll = Math.trunc(Math.random() * 6) + 1;
+
+// while (roll !== 6) {
+//   console.log(`you rolled a ${roll}`);
+//   roll = Math.trunc(Math.random() * 6) + 1;
+
+//   if (roll === 6) console.log(`Congrats! You rolled a 6!`);
+// }
