@@ -36,6 +36,11 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 // let highscore = 0;
 
+document.querySelector('.guess').addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    playGame();
+  }
+});
 document.querySelector('.again').addEventListener('click', playAgain);
 document.querySelector('.check').addEventListener('click', playGame);
 
@@ -48,7 +53,7 @@ function playGame() {
       'Guess a number between 1-20!';
   } else if (guess === secretNumber) {
     score += 2;
-    updateThings(
+    updateContent(
       `${score - 2} + 2`,
       'correct number!',
       secretNumber,
