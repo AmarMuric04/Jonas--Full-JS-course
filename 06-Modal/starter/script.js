@@ -26,6 +26,7 @@ btnsShowModal.forEach(button => {
       if (event.key === 'Escape') {
         addClassHidden();
       }
+      overlay.addEventListener('click', addClassHidden);
     });
   });
 });
