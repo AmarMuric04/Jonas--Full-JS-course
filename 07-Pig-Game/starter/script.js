@@ -55,7 +55,7 @@ btnRoll.addEventListener('click', function () {
   const dice = Math.trunc(Math.random() * 6) + 1;
 
   diceImage.classList.remove('hidden');
-  diceImage.src = `dice-${dice}.png`;
+  diceImage.src = `dice-${dice}-modified.png`;
   if (dice !== 1) {
     currentScore += dice;
     document.getElementById(`current--${activePlayer}`).textContent =
@@ -64,11 +64,12 @@ btnRoll.addEventListener('click', function () {
     switchPlayer();
   }
 });
+let timeoutId;
 btnHold.addEventListener('click', function () {
   document.getElementById(`score--${activePlayer}`).textContent = scores[
     activePlayer
   ] += currentScore;
-  if (scores[0] >= 10 || scores[1] >= 10) {
+  if (scores[0] >= 100 || scores[1] >= 100) {
     document.getElementById(`score--${activePlayer}`).textContent = 'You win';
     document
       .querySelector(`.player--${activePlayer}`)
@@ -81,14 +82,14 @@ btnHold.addEventListener('click', function () {
     document.getElementById(`current--${activePlayer}`).textContent = '♕';
     document.getElementById(`current--${activePlayer}`).style.color =
       ' #d19d43';
-    document.querySelector(' .current-label').textContent = '';
+    document.querySelector(`.current-label--${activePlayer}`).textContent = '';
     document.querySelector(`.current--${activePlayer}`).style.backgroundColor =
       '#222';
   } else {
     if (currentScore !== 0) {
       switchPlayer();
     } else {
-      alert('You must roll at least once');
+      timeout();
     }
   }
 });
@@ -102,17 +103,36 @@ function switchPlayer() {
 }
 
 btnNew.addEventListener('click', function () {
-  activePlayer = 0;
-
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
   btnHold.classList.remove('hidden');
   btnRoll.classList.remove('hidden');
   diceImage.classList.add('hidden');
+
   scores = [0, 0];
   currentScore = 0;
   score0El.textContent = 0;
   score1El.textContent = 0;
   current0El.textContent = 0;
   current1El.textContent = 0;
+  document.querySelector(`.current-label--${activePlayer}`).textContent =
+    'CURRENT';
+  document.querySelector(`.current--${activePlayer}`).style.backgroundColor =
+    'black';
+  document.getElementById(`score--${activePlayer}`).textContent = '0';
+  document.getElementById(`current--${activePlayer}`).textContent = '0';
+  document.getElementById(`current--${activePlayer}`).style.color = 'white';
+  activePlayer = 0;
 });
+function timeout() {
+  clearTimeout(timeoutId);
+  document.querySelector('.alert').classList.remove('hidden');
+  document.querySelector('.alert1060').classList.remove('hidden');
+  timeoutId = setTimeout(function () {
+    document.querySelector('.alert').classList.add('hidden');
+    document.querySelector('.alert1060').classList.add('hidden');
+  }, 1000);
+}
