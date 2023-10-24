@@ -60,19 +60,30 @@ btnRoll.addEventListener('click', function () {
     currentScore += dice;
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore;
+  } else {
+    switchPlayer();
   }
 });
 btnHold.addEventListener('click', function () {
   document.getElementById(`score--${activePlayer}`).textContent = scores[
     activePlayer
   ] += currentScore;
-  if (scores[0] >= 100 || scores[1] >= 100) {
+  if (scores[0] >= 10 || scores[1] >= 10) {
     document.getElementById(`score--${activePlayer}`).textContent = 'You win';
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.add('player--winner');
     btnHold.classList.add('hidden');
     btnRoll.classList.add('hidden');
     diceImage.classList.add('hidden');
-    current0El.textContent = 0;
-    current1El.textContent = 0;
+    document.getElementById(`score--${activePlayer}`).style.color = ' black';
+    document.getElementById(`name--${activePlayer}`).style.color = ' black';
+    document.getElementById(`current--${activePlayer}`).textContent = '♕';
+    document.getElementById(`current--${activePlayer}`).style.color =
+      ' #d19d43';
+    document.querySelector(' .current-label').textContent = '';
+    document.querySelector(`.current--${activePlayer}`).style.backgroundColor =
+      '#222';
   } else {
     if (currentScore !== 0) {
       switchPlayer();
@@ -92,6 +103,7 @@ function switchPlayer() {
 
 btnNew.addEventListener('click', function () {
   activePlayer = 0;
+
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
   btnHold.classList.remove('hidden');
@@ -101,4 +113,6 @@ btnNew.addEventListener('click', function () {
   currentScore = 0;
   score0El.textContent = 0;
   score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
 });
