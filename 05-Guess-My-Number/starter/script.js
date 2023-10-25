@@ -35,7 +35,6 @@ let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 let score = 20;
 // let highscore = 0;
-
 document.querySelector('.guess').addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     playGame();
@@ -69,7 +68,7 @@ function playGame() {
   } else if (guess !== secretNumber) {
     if (score >= 1) {
       updateContent(
-        `${score}`,
+        `${score - 1}`,
         guess > secretNumber ? 'Too high!' : 'Too low',
         '?',
         '15rem',
