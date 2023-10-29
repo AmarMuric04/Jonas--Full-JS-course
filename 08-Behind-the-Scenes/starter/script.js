@@ -155,48 +155,104 @@
 
 // var name = 'Matilda';
 
-const amar = {
-  name: 'Amar',
-  year: 2004,
+// const amar = {
+//   name: 'Amar',
+//   year: 2004,
 
-  about: function () {
-    // console.log(this);
-    console.log(2037 - this.year);
+//   about: function () {
+//     // console.log(this);
+//     console.log(2037 - this.year);
 
-    //SOLUTION 1
-    //   const self = this; // self or that
-    //   function isMillenial() {
-    //     console.log(self);
-    //     console.log(self.year >= 1981 && self.year <= 1996);
-    //     // console.log(this.year >= 1981 && this.year <= 1996);
-    //   }
-    //   isMillenial();
-    // },
+//     //SOLUTION 1
+//     //   const self = this; // self or that
+//     //   function isMillenial() {
+//     //     console.log(self);
+//     //     console.log(self.year >= 1981 && self.year <= 1996);
+//     //     // console.log(this.year >= 1981 && this.year <= 1996);
+//     //   }
+//     //   isMillenial();
+//     // },
 
-    // SOLUTION TWO
-    const isMillenial = () => {
-      console.log(this.year >= 1981 && this.year <= 1996);
-    };
-    isMillenial();
-  },
+//     // SOLUTION TWO
+//     const isMillenial = () => {
+//       console.log(this.year >= 1981 && this.year <= 1996);
+//     };
+//     isMillenial();
+//   },
 
-  greet: () => console.log(`Hey ${this.name}`), //goes inside Window object, and looks for property called NAME
-};
-amar.about();
-// amar.greet();
+//   greet: () => console.log(`Hey ${this.name}`), //goes inside Window object, and looks for property called NAME
+// };
+// amar.about();
+// // amar.greet();
 
-//never use arrow function as a method.
-//but you can use arrow functions inside of methods
+// //never use arrow function as a method.
+// //but you can use arrow functions inside of methods
 
-const addExpr = function (a, b) {
-  console.log(arguments);
-  return a + b;
-};
-addExpr(2, 5);
-addExpr(2, 5, 7, 10, 12);
-
-// var addArrow = (a, b) => {
+// const addExpr = function (a, b) {
 //   console.log(arguments);
 //   return a + b;
 // };
-// addArrow(5, 2, 3, 4);
+// addExpr(2, 5);
+// addExpr(2, 5, 7, 10, 12);
+
+// // var addArrow = (a, b) => {
+// //   console.log(arguments);
+// //   return a + b;
+// // };
+// // addArrow(5, 2, 3, 4);
+
+// let age = 30;
+// let oldAge = age;
+// age = 31;
+
+// console.log(oldAge, age);
+
+// const amar = {
+//   name: 'Amar',
+//   age: 18,
+// };
+// const friend = amar;
+// friend.age = 27;
+
+// console.log(friend, amar);
+
+//PRIMITIVES ==> number, string, boolean, undefined, null, symbol, bigInt PRIMITIVE TYPES
+
+//OBJECT ==> object literal, arrays, functions, more... REFERENCE TYPES
+
+// //PRIMITIVE TYPES
+// let lastName = 'Muric';
+// let oldLastName = lastName;
+// lastName = 'Murga';
+// console.log(lastName, oldLastName);
+
+// //REFERENCE TYPES
+// const jessica = {
+//   firstName: 'Jessica',
+//   lastName: 'Williams',
+//   age: 27,
+// };
+// const marriedJessica = jessica;
+
+// marriedJessica.lastName = 'Davis';
+
+// console.log(marriedJessica, jessica);
+
+//Copying objects
+
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'In', 'The', 'Wonderland'],
+};
+
+//OBJECT.ASSIGN ONLY CREATES A SHALLOW COPY, NOT A FULL COPY (DEEP CLONE), IF THERE WAS AN
+//OBJECT INSIDE THE OBJECT, THE INNER OBJECT WOULDNT GET COPIED.
+const jessicaCopy = Object.assign({}, jessica);
+jessicaCopy.lastName = 'Davis';
+jessicaCopy.family.push('Murga', 'John');
+console.log(jessicaCopy, jessica);
+
+
+//TO GET A DEEP CLONE, WE NEED TO USE EXTERNAL LIBRARIES.
