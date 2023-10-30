@@ -93,6 +93,8 @@ const game = {
 };
 const players1 = [...game.players[0]];
 const players2 = [...game.players[1]];
+const [players11, players22] = game.players;
+console.log(players11, players22);
 console.log(players1, players2);
 
 let [gk, pavard, ...fieldPlayers] = players1;
@@ -126,6 +128,9 @@ const underdog =
   team1 > team2
     ? "Bayern is more likely to win"
     : "Dortmund is more likely to win";
+
+team1 < team2 && console.log(`team1 is more likely to win`);
+team1 > team2 && console.log(`team2 is more likely to win`);
 
 console.log(underdog);
 

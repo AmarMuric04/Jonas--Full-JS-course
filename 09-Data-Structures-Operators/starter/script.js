@@ -352,3 +352,13 @@ const restaurant = {
 // rest1.owner &&= '<ANONYMOUS>';
 // console.log(rest2);
 // console.log(rest1);
+
+//LOOPING ARRAYS
+
+const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+for (const item of menu) console.log(item);
+
+for (const [i, el] of menu.entries()) console.log(`${i + 1} ${el}`); // console.log(`${item[0] + 1}, ${item[1]}`);
+
+console.log(...menu.entries());
+// SJOWS THE INDEX AND THE PROPERTY INSIDE AN ARRAY
