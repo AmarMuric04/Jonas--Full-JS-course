@@ -254,5 +254,12 @@ jessicaCopy.lastName = 'Davis';
 jessicaCopy.family.push('Murga', 'John');
 console.log(jessicaCopy, jessica);
 
-
 //TO GET A DEEP CLONE, WE NEED TO USE EXTERNAL LIBRARIES.
+
+const amar = {
+  name: 'Amar',
+  age: 18,
+};
+const birthdayAmar = Object.assign({}, amar);
+birthdayAmar.age++;
+console.log(birthdayAmar);
