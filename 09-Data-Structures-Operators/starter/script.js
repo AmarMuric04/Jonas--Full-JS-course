@@ -28,7 +28,14 @@ const restaurant = {
   orderPasta: function (ing1, ing2, ing3) {
     console.log(`here is ur delicious pasta with ${ing1}, ${ing2} and ${ing3}`);
   },
-
+  orderPizza(mainIngrediant, ...otherIngrediats) {
+    if (otherIngrediats.length === 0) {
+      otherIngrediats = 'nothing else';
+    }
+    console.log(
+      `Your pizza with ${mainIngrediant} and ${otherIngrediats} has been delivered!`
+    );
+  },
   openingHours: {
     thu: {
       open: 12,
@@ -133,55 +140,124 @@ const restaurant = {
 
 // //DESTRUCTURING OBJECTS UP ABOVE
 
-const arr = [7, 8, 9];
-// const arr2 = [1, 2, 3];
-const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badNewArray);
+// const arr = [7, 8, 9];
+// // const arr2 = [1, 2, 3];
+// const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
+// console.log(badNewArray);
 
-//SPREAD OPERATOR
-const newArray = [1, 2, ...arr];
-console.log(newArray);
-console.log(...newArray);
+// //SPREAD OPERATOR
+// const newArray = [1, 2, ...arr];
+// console.log(newArray);
+// console.log(...newArray);
 
-const newMenu = [...restaurant.mainMenu, 'Gnocci', 'Birijan', 'Tursija'];
-console.log(newMenu);
+// const newMenu = [...restaurant.mainMenu, 'Gnocci', 'Birijan', 'Tursija'];
+// console.log(newMenu);
 
-// let arr3 = arr.concat(arr2);
-// console.log(arr3);
-// arr3 = [...arr, ...arr2];
-// console.log(arr3);
+// // let arr3 = arr.concat(arr2);
+// // console.log(arr3);
+// // arr3 = [...arr, ...arr2];
+// // console.log(arr3);
 
-//copy array
+// //copy array
 
-const mainMenuCopy = [...restaurant.mainMenu];
+// const mainMenuCopy = [...restaurant.mainMenu];
 
-//join 2 arrays
+// //join 2 arrays
 
-const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
-console.log(menu);
-//Iterables are arrays, strings, maps and sets, but not OBJECTS.
-const str = 'Amar';
-const letters = [...str];
-console.log(letters);
-console.log(...str);
-// const openingHoursCopy = { ...restaurant.openingHours };
-// console.log(openingHoursCopy);
+// const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(menu);
+// //Iterables are arrays, strings, maps and sets, but not OBJECTS.
+// const str = 'Amar';
+// const letters = [...str];
+// console.log(letters);
+// console.log(...str);
+// // const openingHoursCopy = { ...restaurant.openingHours };
+// // console.log(openingHoursCopy);
 
-//real world example
-// const ingrediants = [
-//   prompt('First ingrediant'),
-//   prompt('Second ingrediant'),
-//   prompt('Ingrediant 3'),
+// //real world example
+// // const ingrediants = [
+// //   prompt('First ingrediant'),
+// //   prompt('Second ingrediant'),
+// //   prompt('Ingrediant 3'),
+// // ];
+
+// // console.log(ingrediants);
+// // restaurant.orderPasta(...ingrediants);
+
+// //objects
+// const restaurantCopy = { foundedIn: 2004, ...restaurant, status: 'Closed' };
+// console.log(restaurantCopy);
+
+// const objectCopy = { ...restaurant };
+// objectCopy.name = 'Murgin kafic';
+// console.log(objectCopy);
+// console.log(restaurant);
+
+//DESTRUCTURING
+
+// //SPREAD because its on the right side of the assignment operator
+// const array = [1, 2, ...[3, 4]];
+// console.log(array);
+
+// //REST because is on the left side of the assignment operator
+// const [a, , b, ...others] = [1, 2, 3, 4, 5];
+// console.log(a, b, others);
+
+// const [pizza, , risotto, ...othersFood] = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
 // ];
+// console.log(pizza, risotto, othersFood);
 
-// console.log(ingrediants);
-// restaurant.orderPasta(...ingrediants);
+// //Objects
 
-//objects
-const restaurantCopy = { foundedIn: 2004, ...restaurant, status: 'Closed' };
-console.log(restaurantCopy);
+// const { thu, fri, ...otherObjects } = restaurant.openingHours;
+// console.log(thu, fri, otherObjects);
+// const { sat, ...weekDays } = restaurant.openingHours;
+// console.log(sat, weekDays);
 
-const objectCopy = { ...restaurant };
-objectCopy.name = 'Murgin kafic';
-console.log(objectCopy);
-console.log(restaurant);
+// //FUNCTIONS
+// let seperateNumbers = [];
+// function add(...numbers) {
+//   let sum = 0;
+//   for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+//   console.log(sum);
+// }
+// add(2, 3);
+// add(5, 3, 7, 2);
+// add(8, 2, 5, 3, 2, 1, 4);
+
+// const x = [23, 5, 7];
+// add(...x);
+// console.log(...x);
+
+// restaurant.orderPizza('mushrooms', 'olives', ' pineapples');
+// restaurant.orderPizza('mushrooms');
+// const array1 = [1, 2, 3, 4];
+// const array2 = [1, 2, 3, ...array1];
+
+// let [first, second, third, ...otherNumbers] = array2;
+// const array3 = [first, second, otherNumbers];
+// console.log(array2, array3);
+
+// [first, second] = [first, third];
+// console.log(first, second, 2, otherNumbers);
+
+// function spoji(...reci) {
+//   return reci.join(', ');
+// }
+// console.log(spoji('Amar', 'Muric', 'Murga'));
+
+// //spread can be anywhere, but rest can only be last
+// // const niz1 = [5, 6, 7];
+// // const niz = [1, 2, 3, 4, ...niz1, 8, 9, 10];
+// // console.log(niz);
+// // const [frst, scnd, thrd, ...otherNums] = niz;
+// // const niz3 = [frst, scnd, thrd, otherNums];
+
+// // console.log(...niz3);
+
+// // let [one, two, three, four, five, six, seven, eight, nine, ...ostali] = niz3;
+// // ostali = four;
+// // const niz4 = [one, two, three, four, five, six, seven, eight, nine, ostali];
+// // console.log(niz4);
