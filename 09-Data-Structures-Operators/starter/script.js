@@ -30,10 +30,10 @@ const restaurant = {
   },
   orderPizza(mainIngrediant, ...otherIngrediats) {
     if (otherIngrediats.length === 0) {
-      otherIngrediats = 'nothing else';
-    }
+      otherIngrediats = ' only';
+    } else otherIngrediats = ` ${otherIngrediats} and`;
     console.log(
-      `Your pizza with ${mainIngrediant} and ${otherIngrediats} has been delivered!`
+      `Your pizza with${otherIngrediats} the main ingrediant ${mainIngrediant} has been delivered!`
     );
   },
   openingHours: {
@@ -261,3 +261,57 @@ const restaurant = {
 // // ostali = four;
 // // const niz4 = [one, two, three, four, five, six, seven, eight, nine, ostali];
 // // console.log(niz4);
+
+//LOGICAL OPERATORS
+
+console.log('----------------OR-----------------');
+//They can use any data type, return any data type,
+//We can use them for short circuiting.
+console.log(3 || 'jonas'); // -> 3
+console.log('' || 'jonas'); // -> ""  -> "jonas"
+console.log(true || 0); // -> false -> true
+console.log(undefined || null); // -> false -> null
+console.log(undefined || undefined);
+//if first is false, the second one is getting written out no matter what its boolean value is
+
+console.log(undefined || null || 'hi' || '' || 0);
+
+console.log(addition(1, 2, 3, 'hello') || addition(1, 2, 3, 4, 5, 6, 7, 8));
+
+function addition(...abc) {
+  let razlika = 0;
+  for (let i = 0; i < abc.length; i++) {
+    razlika -= abc[i];
+  }
+  return razlika;
+}
+console.log(addition(1, 2, 3, 4, 5, 'hello'));
+
+restaurant.numGuests = 0;
+//ternary
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+// short circuiting a ternary
+
+restaurant.numGuests = '0' ? '0' : -1;
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+console.log('-----------AND------------');
+
+console.log(0 && 'hello');
+console.log(7 > 5 && 3 > 2 && 2 > 1 && 'All operations are correct');
+
+console.log('Hello' && 23 && null && 'amar');
+//--------// true -->true -->false!
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
+}
+
+//if the first value is true, the second one will be called, if the first or the second one are false, it will be messed up
+restaurant.orderPizza &&
+  restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
+
+//or returns FIRST true value , if none are true, it returns the LAST FALSEY value
+//and returns TRUE on the LAST true value, if any of them are false, it short circuits.
