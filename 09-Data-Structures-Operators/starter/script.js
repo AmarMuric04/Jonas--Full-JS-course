@@ -264,54 +264,91 @@ const restaurant = {
 
 //LOGICAL OPERATORS
 
-console.log('----------------OR-----------------');
-//They can use any data type, return any data type,
-//We can use them for short circuiting.
-console.log(3 || 'jonas'); // -> 3
-console.log('' || 'jonas'); // -> ""  -> "jonas"
-console.log(true || 0); // -> false -> true
-console.log(undefined || null); // -> false -> null
-console.log(undefined || undefined);
-//if first is false, the second one is getting written out no matter what its boolean value is
+// console.log('----------------OR-----------------');
+// //They can use any data type, return any data type,
+// //We can use them for short circuiting.
+// console.log(3 || 'jonas'); // -> 3
+// console.log('' || 'jonas'); // -> ""  -> "jonas"
+// console.log(true || 0); // -> false -> true
+// console.log(undefined || null); // -> false -> null
+// console.log(undefined || undefined);
+// //if first is false, the second one is getting written out no matter what its boolean value is
 
-console.log(undefined || null || 'hi' || '' || 0);
+// console.log(undefined || null || 'hi' || '' || 0);
 
-console.log(addition(1, 2, 3, 'hello') || addition(1, 2, 3, 4, 5, 6, 7, 8));
+// console.log(addition(1, 2, 3, 'hello') || addition(1, 2, 3, 4, 5, 6, 7, 8));
 
-function addition(...abc) {
-  let razlika = 0;
-  for (let i = 0; i < abc.length; i++) {
-    razlika -= abc[i];
-  }
-  return razlika;
-}
-console.log(addition(1, 2, 3, 4, 5, 'hello'));
+// function addition(...abc) {
+//   let razlika = 0;
+//   for (let i = 0; i < abc.length; i++) {
+//     razlika -= abc[i];
+//   }
+//   return razlika;
+// }
+// console.log(addition(1, 2, 3, 4, 5, 'hello'));
 
-restaurant.numGuests = 0;
-//ternary
-const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
-console.log(guests1);
-// short circuiting a ternary
+// restaurant.numGuests = 0;
+// //ternary
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guests1);
+// // short circuiting a ternary
 
-restaurant.numGuests = '0' ? '0' : -1;
-const guests2 = restaurant.numGuests || 10;
-console.log(guests2);
+// restaurant.numGuests = '0' ? '0' : -1;
+// const guests2 = restaurant.numGuests || 10;
+// console.log(guests2);
 
-console.log('-----------AND------------');
+// console.log('-----------AND------------');
 
-console.log(0 && 'hello');
-console.log(7 > 5 && 3 > 2 && 2 > 1 && 'All operations are correct');
+// console.log(0 && 'hello');
+// console.log(7 > 5 && 3 > 2 && 2 > 1 && 'All operations are correct');
 
-console.log('Hello' && 23 && null && 'amar');
-//--------// true -->true -->false!
+// console.log('Hello' && 23 && null && 'amar');
+// //--------// true -->true -->false!
 
-if (restaurant.orderPizza) {
-  restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
-}
+// if (restaurant.orderPizza) {
+//   restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
+// }
 
-//if the first value is true, the second one will be called, if the first or the second one are false, it will be messed up
-restaurant.orderPizza &&
-  restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
+// //if the first value is true, the second one will be called, if the first or the
+// //second one are false, it will be messed up
+// restaurant.orderPizza &&
+//   restaurant.orderPizza('olives', 'vinegar', 'potatoes', 'tomatoes');
 
-//or returns FIRST true value , if none are true, it returns the LAST FALSEY value
-//and returns TRUE on the LAST true value, if any of them are false, it short circuits.
+// //or returns FIRST true value , if none are true, it returns the LAST FALSEY value
+// //and returns TRUE on the LAST true value, if any of them are false, it short circuits.
+
+// restaurant.numGuests = 0;
+// const guests3 = restaurant.numGuests || 10;
+// console.log(guests3);
+
+// //NULLISH values are null and undefined (does not include 0 or empty string (""))
+// //if restaurant.newGuests was undefined OR null, it would show 10, otherwise, it
+// //shows the number of the guests
+// const guestsCorrect = restaurant.numGuests ?? 10;
+// console.log(guestsCorrect);
+// const rest1 = {
+//   name: 'Murgin caffe',
+//   numGuests: 0,
+// };
+// const rest2 = {
+//   name: 'Taksim',
+//   owner: 'Murga',
+// };
+
+// // rest2.numGuests = rest2.numGuests || 10;
+// // rest1.numGuests = rest1.numGuests || 10;
+
+// //The or assignment operator, same as sum = sum + number (sum += number)
+
+// rest2.numGuests ||= 10; //if numGuests is 0, it shows 10 ->problem
+// rest1.numGuests ??= 10; //if numGuests is 0, it shows 0 -> not a problem
+// //NAME: nullish assignment operator
+
+// // rest2.owner = rest2.owner && '<ANONYMOUS>';
+// // console.log(rest2);
+// // console.log(rest1);
+
+// rest2.owner &&= '<ANONYMOUS>';
+// rest1.owner &&= '<ANONYMOUS>';
+// console.log(rest2);
+// console.log(rest1);
