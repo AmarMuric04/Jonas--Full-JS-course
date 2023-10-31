@@ -223,13 +223,6 @@ const { team1, team2 } = game.odds;
 const draw = game.odds.x;
 console.log(team1, draw, team2);
 
-function getAverageOdd(odds) {
-  let average = 0;
-  for (let i = 0; i < odds.length; i++) {
-    average += odds[i];
-  }
-  console.log(average / odds.length);
-}
 printGoals(game.scored);
 const underdog =
   team1 > team2
@@ -242,3 +235,11 @@ function bet(bet, what) {
   return bet * what;
 }
 console.log(bet(1000, team2));
+
+function getAverageOdd(odds) {
+  let average = 0;
+  for (let i = 0; i < odds.length; i++) {
+    average += odds[i];
+  }
+  console.log(average / odds.length);
+}
