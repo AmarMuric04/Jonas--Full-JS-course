@@ -414,5 +414,3 @@ for (const [key, { open, close }] of entries) {
 // rest1.owner &&= '<ANONYMOUS>';
 // console.log(rest2);
 // console.log(rest1);
-
-//ENHANCED OBJECT LITERALS

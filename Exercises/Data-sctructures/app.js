@@ -203,14 +203,25 @@ const game = {
     team2: 6.5,
   },
 };
-function loopThroughScorers(scorers) {
-  const newArray = [];
-  for (i = 0; i < scorers.length; i++) {
-    newArray.push(`Goal ${i + 1}: ${scorers[i]}, `);
-  }
-  console.log(...newArray);
-}
-loopThroughScorers(game.scored);
+const players1 = [...game.players[0]];
+const players2 = [...game.players[1]];
+console.log(players1, players2);
+
+let [gk, pavard, ...fieldPlayers] = players1;
+pavard = "thiago";
+const teamAfterSubmission = [gk, pavard, ...fieldPlayers];
+console.log(teamAfterSubmission);
+console.log(gk);
+console.log(fieldPlayers);
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+const players1Final = [...players1, "Thiago", "Çoutinho", "Perisic"];
+console.log(players1Final);
+
+const { team1, team2 } = game.odds;
+const draw = game.odds.x;
+console.log(team1, draw, team2);
 
 function getAverageOdd(odds) {
   let average = 0;
@@ -219,9 +230,15 @@ function getAverageOdd(odds) {
   }
   console.log(average / odds.length);
 }
-getAverageOdd(Object.values(game.odds));
+printGoals(game.scored);
+const underdog =
+  team1 > team2
+    ? "Bayern is more likely to win"
+    : "Dortmund is more likely to win";
 
-for (i = 0; i < game.odds.length; i++) {
-  console.log(i);
-  console.log(`${team[i]}`);
+console.log(underdog);
+
+function bet(bet, what) {
+  return bet * what;
 }
+console.log(bet(1000, team2));
