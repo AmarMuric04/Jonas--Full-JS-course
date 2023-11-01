@@ -171,7 +171,7 @@ const game = {
     ],
   ],
   score: "4:0",
-  scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels"],
+  scored: ["Lewandowski", "Gnarby", "Lewandowski", "Hummels", "Murga"],
   date: "Nov 9th, 2037",
   odds: {
     team1: 1.33,
@@ -179,6 +179,7 @@ const game = {
     team2: 6.5,
   },
 };
+
 /*
 1. Loop over the game.scored array and print each player name to the console, along with the goal number 
 (Example: "Goal 1: Lewandowski")
@@ -187,7 +188,7 @@ const game = {
 3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
       Odd of victory Bayern Munich: 1.33
       Odd of draw: 3.25
-      Odory Borrussia Dortmund: 6.5
+      Odd of victory Borrussia Dortmund: 6.5
 Get the team named of victs directly from the game object, don't hardcode them (except for "draw"). 
 HINT: Note how the odds and the game objects have the same property names 😉
 
@@ -201,9 +202,51 @@ as properties, and the number of goals as the value. In this game, it will look 
 
 GOOD LUCK 😀
 */
+for (const [index, scorer] of game.scored.entries()) {
+  console.log(`Goal number ${index + 1} was scored by: ${scorer}`);
+}
 
-console.log(Object.entries(game.scored));
+const value = Object.entries(game.odds);
+let sum = 0;
+for (const [odd, values] of value) {
+  console.log(odd, values);
+  sum += values;
+}
+console.log((sum / value.length).toFixed(2));
 
-const entries = Object.entries(game.scored);
+function a(parameter) {
+  const newArray = [];
+  for (let i = 0; i < parameter.length; i++) {
+    newArray.push(`${i + 1}: ${parameter[i]}`);
+  }
+  console.log(...newArray);
+}
+a(game.scored);
 
-console.log(Object.values(entries));
+function b(odds) {
+  let oddsAverage = 0;
+  for (i = 0; i < odds.length; i++) {
+    oddsAverage += odds[i] / odds.length;
+  }
+  console.log(oddsAverage.toFixed(2));
+}
+b(Object.values(game.odds));
+
+const entries = Object.entries(game.odds);
+
+// console.log(entries);
+for (const [team, odds] of entries) {
+  word = team === "x" ? "draw" : `victory ${game[team]}`;
+  console.log(`Odds of ${word} ${odds}`);
+}
+
+const scorers = {};
+
+for (const player of game.scored) {
+  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+}
+
+// game.scored.forEach(function (element) {
+//   scorers[element] ? scorers[element]++ : (scorers[element] = 1);
+// });
+console.log(scorers);
