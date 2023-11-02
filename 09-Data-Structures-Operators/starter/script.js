@@ -499,3 +499,15 @@ console.log(question);
 console.log(Object.entries(openingHours));
 const hoursMap = new Map(Object.entries(openingHours));
 console.log(hoursMap);
+//ITERATION USING MAPS
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  typeof key === 'number' ? console.log(`Answer ${key}: ${value}`) : '';
+}
+const answer = 3; // +prompt('Your answer');
+console.log(answer);
+
+console.log(question.get(answer === question.get('correct')));
+
+//Converting a map into an array
+console.log([...question]);
