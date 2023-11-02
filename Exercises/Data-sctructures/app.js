@@ -201,52 +201,92 @@ as properties, and the number of goals as the value. In this game, it will look 
       }
 
 GOOD LUCK 😀
+// */
+// for (const [index, scorer] of game.scored.entries()) {
+//   console.log(`Goal number ${index + 1} was scored by: ${scorer}`);
+// }
+
+// const value = Object.entries(game.odds);
+// let sum = 0;
+// for (const [odd, values] of value) {
+//   console.log(odd, values);
+//   sum += values;
+// }
+// console.log((sum / value.length).toFixed(2));
+
+// function a(parameter) {
+//   const newArray = [];
+//   for (let i = 0; i < parameter.length; i++) {
+//     newArray.push(`${i + 1}: ${parameter[i]}`);
+//   }
+//   console.log(...newArray);
+// }
+// a(game.scored);
+
+// function b(odds) {
+//   let oddsAverage = 0;
+//   for (i = 0; i < odds.length; i++) {
+//     oddsAverage += odds[i] / odds.length;
+//   }
+//   console.log(oddsAverage.toFixed(2));
+// }
+// b(Object.values(game.odds));
+
+// const entries = Object.entries(game.odds);
+
+// // console.log(entries);
+// for (const [team, odds] of entries) {
+//   word = team === "x" ? "draw" : `victory ${game[team]}`;
+//   console.log(`Odds of ${word} ${odds}`);
+// }
+
+// const scorers = {};
+
+// for (const player of game.scored) {
+//   scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+// }
+
+// // game.scored.forEach(function (element) {
+// //   scorers[element] ? scorers[element]++ : (scorers[element] = 1);
+// // });
+// console.log(scorers);
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, it was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
 */
-for (const [index, scorer] of game.scored.entries()) {
-  console.log(`Goal number ${index + 1} was scored by: ${scorer}`);
+
+const gameEvents = new Map([
+  [17, "⚽️ GOAL"],
+  [36, "🔁 Substitution"],
+  [47, "⚽️ GOAL"],
+  [61, "🔁 Substitution"],
+  [64, "🔶 Yellow card"],
+  [69, "🔴 Red card"],
+  [70, "🔁 Substitution"],
+  [72, "🔁 Substitution"],
+  [76, "⚽️ GOAL"],
+  [80, "⚽️ GOAL"],
+  [92, "🔶 Yellow card"],
+]);
+
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+console.log(90 / gameEvents.size);
+
+for (const [key, value] of gameEvents) {
+  if (key < 45) {
+    console.log(`[FIRST HALF] ${key}: ${value}`);
+  } else console.log(`[SECOND HALF] ${key}: ${value}`);
 }
-
-const value = Object.entries(game.odds);
-let sum = 0;
-for (const [odd, values] of value) {
-  console.log(odd, values);
-  sum += values;
-}
-console.log((sum / value.length).toFixed(2));
-
-function a(parameter) {
-  const newArray = [];
-  for (let i = 0; i < parameter.length; i++) {
-    newArray.push(`${i + 1}: ${parameter[i]}`);
-  }
-  console.log(...newArray);
-}
-a(game.scored);
-
-function b(odds) {
-  let oddsAverage = 0;
-  for (i = 0; i < odds.length; i++) {
-    oddsAverage += odds[i] / odds.length;
-  }
-  console.log(oddsAverage.toFixed(2));
-}
-b(Object.values(game.odds));
-
-const entries = Object.entries(game.odds);
-
-// console.log(entries);
-for (const [team, odds] of entries) {
-  word = team === "x" ? "draw" : `victory ${game[team]}`;
-  console.log(`Odds of ${word} ${odds}`);
-}
-
-const scorers = {};
-
-for (const player of game.scored) {
-  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
-}
-
-// game.scored.forEach(function (element) {
-//   scorers[element] ? scorers[element]++ : (scorers[element] = 1);
-// });
-console.log(scorers);
