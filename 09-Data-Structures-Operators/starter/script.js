@@ -511,49 +511,177 @@ const restaurant = {
 
 // //Converting a map into an array
 // console.log([...question]);
-const airline = 'TAP Air Portugal';
-const plane = 'A320';
-console.log(plane[0]);
-console.log(plane[1]);
-console.log(plane[2]);
-console.log(plane[3]);
-console.log('B737'[0]);
-console.log(airline.length);
-console.log('B737'.length);
+// const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+// console.log(plane[0]);
+// console.log(plane[1]);
+// console.log(plane[2]);
+// console.log(plane[3]);
+// console.log('B737'[0]);
+// console.log(airline.length);
+// console.log('B737'.length);
 
-console.log(airline.indexOf('r'));
-console.log(airline.lastIndexOf('r'));
+// console.log(airline.indexOf('r'));
+// console.log(airline.lastIndexOf('r'));
 
-console.log(airline.slice(4, 5));
-console.log('Murga'.slice(2, 4));
-console.log(airline.slice(0, airline.indexOf(' ')));
-console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+// console.log(airline.slice(4, 5));
+// console.log('Murga'.slice(2, 4));
+// console.log(airline.slice(0, airline.indexOf(' ')));
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
 
-console.log(airline.slice(-2));
-console.log(airline.slice(1, -2));
+// console.log(airline.slice(-2));
+// console.log(airline.slice(1, -2));
 
-const seats = ['11A', '11B', '22A', '22B', '01E', '02D', '53E', '33C', '53E'];
-const numOfMiddles = {};
-function checkMiddleSeat(seat) {
-  //B AND E ARE MIDDLE SEATS
-  // for (const [i, s] of seats.entries()) {
-  //   numOfMiddles[seats[i]]
-  //     ? numOfMiddles[seats[i]]++
-  //     : (numOfMiddles[seats[i]] = 1);
-  // }
-  // console.log(numOfMiddles);
-  for (const s of seats) {
-    if (s.slice(-1) == 'B' || s.slice(-1) == 'E') {
-      numOfMiddles.middle ? numOfMiddles.middle++ : (numOfMiddles.middle = 1);
-    } else {
-      numOfMiddles.notMiddle
-        ? numOfMiddles.notMiddle++
-        : (numOfMiddles.notMiddle = 1);
-    }
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
+// //fix capitalization in passenger name
+
+// const passenger = 'mUrGa';
+// const passengerLower = passenger.toLowerCase();
+// const passengerCorrect =
+//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// console.log(passengerCorrect);
+
+const names = ['amaR', 'mUrgA', 'sTeFan', 'lUkA', 'OmEr', 'vAhid', 'Steven'];
+const fixedNames = [];
+function correctNames(name) {
+  for (const fname of name) {
+    const passengerLower = fname.toLowerCase();
+    const passengerCorrect =
+      passengerLower[0].toUpperCase() + passengerLower.slice(1);
+    fixedNames.push(passengerCorrect);
   }
+  console.log(names);
+  console.log(fixedNames);
 }
-checkMiddleSeat(...seats);
-console.log(numOfMiddles);
+correctNames(names);
+
+//Comparing email
+const email = 'muricamar2004@gmail.com';
+const loginEmail = '  MuRicAmAR2004@gmAIl.CoM \n';
+
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+trimmedEmail === email ? console.log('same') : console.log('not the same ');
+normalizedEmail === email ? console.log('same') : console.log('not the same ');
+
+//Replacing
+const priceGB = '288,97p';
+const priceUS = priceGB.replace(',', '.').replace('p', '$');
+console.log(priceUS);
+
+const announcemenet =
+  'All passangers come to boarding door 23. Boarding door 23';
+
+// console.log(announcemenet.replace('door', 'gate'));
+// console.log(announcemenet.replaceAll('door', 'gate'));
+
+console.log(announcemenet.replace(/door/g, 'gate'));
+
+//BOOLEANS
+//includes, startswith, endswith
+
+const plane = 'A320neo';
+console.log(plane.endsWith('eo'));
+
+// let userSentence = prompt('Write a positive message');
+// userSentence = userSentence.includes('fuck')
+//   ? userSentence
+//       .replace(/fuck/g, '!@#$')
+//       .replace(/shit/g, '!@#$')
+//       .replace(/boob/g, '!@#$')
+//       .replace(/ass/g, '!@#')
+//       .replace(/drug/g, '!@#$')
+//   : userSentence;
+// console.log(userSentence);
+
+plane.startsWith('A320') && plane.endsWith('neo')
+  ? console.log('new')
+  : console.log('old');
+
+//Practice exercise
+function checkBaggage(item) {
+  const baggage = item.toLowerCase();
+  baggage.includes('gun') || baggage.includes('gun')
+    ? console.log('not allowed')
+    : console.log('welcome!');
+}
+checkBaggage('I have an AR-14, an AK-47, a MAC-11 and a XM1014 <3');
+checkBaggage('I have some snacks and a child');
+checkBaggage('I have a somalian slave inside the pocket of one of my bags');
+
+//split and join
+console.log('a+very+nice+string'.split('+'));
+console.log('Amar Muric'.split(' '));
+
+const [firstName, lastName] = 'Amar Muric'.split(' ');
+console.log(firstName, lastName.toUpperCase());
+
+const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+function capitalizeName(name) {
+  const correctNames = [];
+  const names = name.split(' ');
+  for (const n of names) {
+    //   correctNames.push(n[0].toUpperCase() + n.slice(1));
+    // }
+    // console.log(correctNames.join(' '));
+    correctNames.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(correctNames.join(' '));
+}
+
+capitalizeName('Jessica ann Smith Davis');
+capitalizeName('amar murga muric');
+
+//PADDING A STRING
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, 'a').padEnd(30, 'a'));
+console.log('Murga'.padStart(25, 'a').padEnd(30, 'a'));
+console.log(message.padEnd(30, 'a'));
+console.log('Murga'.padEnd(30, 'a'));
+
+function maskCreditCard(number) {
+  // const string = String(number);
+  const string = number + '';
+  const lastFour = string.slice(-4);
+  console.log(lastFour.padStart(19, '**** '));
+  console.log(lastFour.padStart(19, '**** ').split(' '));
+}
+maskCreditCard(1234123412341234);
+maskCreditCard('1234123412341234');
+
+// console.log('Amar Muric'.slice(0, 'Amar Muric'.lastIndexOf(' ')));
+// console.log('Amar Muric'.slice('Amar Muric'.indexOf(' ') + 1));
+
+// const seats = ['11A', '11B', '22A', '22B', '01E', '02D', '53E', '33C', '53E'];
+// const numOfMiddles = {};
+// function checkMiddleSeat(seat) {
+//   //B AND E ARE MIDDLE SEATS
+//   // for (const [i, s] of seats.entries()) {
+//   //   numOfMiddles[seats[i]]
+//   //     ? numOfMiddles[seats[i]]++
+//   //     : (numOfMiddles[seats[i]] = 1);
+//   // }
+//   // console.log(numOfMiddles);
+
+//   // CHECKING HOW MANY MIDDLE SEATS ARE IN AN AIRPLANE BASED OFF AN ARRAY OF AIRPLANE SEATS
+//   for (const s of seats) {
+//     if (s.slice(-1) == 'B' || s.slice(-1) == 'E') {
+//       numOfMiddles.middle ? numOfMiddles.middle++ : (numOfMiddles.middle = 1);
+//     } else {
+//       numOfMiddles.notMiddle
+//         ? numOfMiddles.notMiddle++
+//         : (numOfMiddles.notMiddle = 1);
+//     }
+//   }
+// }
+// checkMiddleSeat(...seats);
+// console.log(numOfMiddles);
 // const num = +prompt('Write any number between 1 and 1 * 10^16');
 
 // const array = [];
