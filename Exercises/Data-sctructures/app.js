@@ -284,6 +284,8 @@ gameEvents.delete(64);
 console.log(gameEvents);
 
 console.log(90 / gameEvents.size);
+// console.log([...gameEvents.keys()][gameEvents.size - 1]);
+console.log([...gameEvents.keys()].pop());
 
 for (const [key, value] of gameEvents) {
   if (key < 45) {
