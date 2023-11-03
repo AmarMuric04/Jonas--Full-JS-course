@@ -277,18 +277,49 @@ const gameEvents = new Map([
   [92, "🔶 Yellow card"],
 ]);
 
-const events = [...new Set(gameEvents.values())];
-console.log(events);
+// const events = [...new Set(gameEvents.values())];
+// console.log(events);
 
-gameEvents.delete(64);
-console.log(gameEvents);
+// gameEvents.delete(64);
+// console.log(gameEvents);
 
-console.log(90 / gameEvents.size);
-// console.log([...gameEvents.keys()][gameEvents.size - 1]);
-console.log([...gameEvents.keys()].pop());
+// console.log(90 / gameEvents.size);
+// // console.log([...gameEvents.keys()][gameEvents.size - 1]);
+// console.log([...gameEvents.keys()].pop());
 
-for (const [key, value] of gameEvents) {
-  if (key < 45) {
-    console.log(`[FIRST HALF] ${key}: ${value}`);
-  } else console.log(`[SECOND HALF] ${key}: ${value}`);
-}
+// for (const [key, value] of gameEvents) {
+//   if (key < 45) {
+//     console.log(`[FIRST HALF] ${key}: ${value}`);
+//   } else console.log(`[SECOND HALF] ${key}: ${value}`);
+// }
+
+// Coding Challenge #4
+
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/

@@ -539,122 +539,133 @@ const restaurant = {
 // const passenger = 'mUrGa';
 // const passengerLower = passenger.toLowerCase();
 // const passengerCorrect =
-//   passengerLower[0].toUpperCase() + passengerLower.slice(1);
-// console.log(passengerCorrect);
+// //   passengerLower[0].toUpperCase() + passengerLower.slice(1);
+// // console.log(passengerCorrect);
 
-const names = ['amaR', 'mUrgA', 'sTeFan', 'lUkA', 'OmEr', 'vAhid', 'Steven'];
-const fixedNames = [];
-function correctNames(name) {
-  for (const fname of name) {
-    const passengerLower = fname.toLowerCase();
-    const passengerCorrect =
-      passengerLower[0].toUpperCase() + passengerLower.slice(1);
-    fixedNames.push(passengerCorrect);
-  }
-  console.log(names);
-  console.log(fixedNames);
-}
-correctNames(names);
+// const names = ['amaR', 'mUrgA', 'sTeFan', 'lUkA', 'OmEr', 'vAhid', 'Steven'];
+// const fixedNames = [];
+// function correctNames(name) {
+//   for (const fname of name) {
+//     const passengerLower = fname.toLowerCase();
+//     const passengerCorrect =
+//       passengerLower[0].toUpperCase() + passengerLower.slice(1);
+//     fixedNames.push(passengerCorrect);
+//   }
+//   console.log(names);
+//   console.log(fixedNames);
+// }
+// correctNames(names);
 
-//Comparing email
-const email = 'muricamar2004@gmail.com';
-const loginEmail = '  MuRicAmAR2004@gmAIl.CoM \n';
+// //Comparing email
+// const email = 'muricamar2004@gmail.com';
+// const loginEmail = '  MuRicAmAR2004@gmAIl.CoM \n';
 
-const lowerEmail = loginEmail.toLowerCase();
-const trimmedEmail = lowerEmail.trim();
+// const lowerEmail = loginEmail.toLowerCase();
+// const trimmedEmail = lowerEmail.trim();
 
-const normalizedEmail = loginEmail.toLowerCase().trim();
-console.log(normalizedEmail);
-trimmedEmail === email ? console.log('same') : console.log('not the same ');
-normalizedEmail === email ? console.log('same') : console.log('not the same ');
+// const normalizedEmail = loginEmail.toLowerCase().trim();
+// console.log(normalizedEmail);
+// trimmedEmail === email ? console.log('same') : console.log('not the same ');
+// normalizedEmail === email ? console.log('same') : console.log('not the same ');
 
-//Replacing
-const priceGB = '288,97p';
-const priceUS = priceGB.replace(',', '.').replace('p', '$');
-console.log(priceUS);
+// //Replacing
+// const priceGB = '288,97p';
+// const priceUS = priceGB.replace(',', '.').replace('p', '$');
+// console.log(priceUS);
 
-const announcemenet =
-  'All passangers come to boarding door 23. Boarding door 23';
+// const announcemenet =
+//   'All passangers come to boarding door 23. Boarding door 23';
 
-// console.log(announcemenet.replace('door', 'gate'));
-// console.log(announcemenet.replaceAll('door', 'gate'));
+// // console.log(announcemenet.replace('door', 'gate'));
+// // console.log(announcemenet.replaceAll('door', 'gate'));
 
-console.log(announcemenet.replace(/door/g, 'gate'));
+// console.log(announcemenet.replace(/door/g, 'gate'));
 
-//BOOLEANS
-//includes, startswith, endswith
+// //BOOLEANS
+// //includes, startswith, endswith
 
-const plane = 'A320neo';
-console.log(plane.endsWith('eo'));
+// const plane = 'A320neo';
+// console.log(plane.endsWith('eo'));
 
-// let userSentence = prompt('Write a positive message');
-// userSentence = userSentence.includes('fuck')
-//   ? userSentence
-//       .replace(/fuck/g, '!@#$')
-//       .replace(/shit/g, '!@#$')
-//       .replace(/boob/g, '!@#$')
-//       .replace(/ass/g, '!@#')
-//       .replace(/drug/g, '!@#$')
-//   : userSentence;
-// console.log(userSentence);
+// // let userSentence = prompt('Write a positive message');
+// // userSentence = userSentence.includes('fuck')
+// //   ? userSentence
+// //       .replace(/fuck/g, '!@#$')
+// //       .replace(/shit/g, '!@#$')
+// //       .replace(/boob/g, '!@#$')
+// //       .replace(/ass/g, '!@#')
+// //       .replace(/drug/g, '!@#$')
+// //   : userSentence;
+// // console.log(userSentence);
 
-plane.startsWith('A320') && plane.endsWith('neo')
-  ? console.log('new')
-  : console.log('old');
+// plane.startsWith('A320') && plane.endsWith('neo')
+//   ? console.log('new')
+//   : console.log('old');
 
-//Practice exercise
-function checkBaggage(item) {
-  const baggage = item.toLowerCase();
-  baggage.includes('gun') || baggage.includes('gun')
-    ? console.log('not allowed')
-    : console.log('welcome!');
-}
-checkBaggage('I have an AR-14, an AK-47, a MAC-11 and a XM1014 <3');
-checkBaggage('I have some snacks and a child');
-checkBaggage('I have a somalian slave inside the pocket of one of my bags');
+// //Practice exercise
+// function checkBaggage(item) {
+//   const baggage = item.toLowerCase();
+//   baggage.includes('gun') || baggage.includes('gun')
+//     ? console.log('not allowed')
+//     : console.log('welcome!');
+// }
+// checkBaggage('I have an AR-14, an AK-47, a MAC-11 and a XM1014 <3');
+// checkBaggage('I have some snacks and a child');
+// checkBaggage('I have a somalian slave inside the pocket of one of my bags');
 
-//split and join
-console.log('a+very+nice+string'.split('+'));
-console.log('Amar Muric'.split(' '));
+// //split and join
+// console.log('a+very+nice+string'.split('+'));
+// console.log('Amar Muric'.split(' '));
 
-const [firstName, lastName] = 'Amar Muric'.split(' ');
-console.log(firstName, lastName.toUpperCase());
+// const [firstName, lastName] = 'Amar Muric'.split(' ');
+// console.log(firstName, lastName.toUpperCase());
 
-const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName);
+// const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+// console.log(newName);
 
-function capitalizeName(name) {
-  const correctNames = [];
-  const names = name.split(' ');
-  for (const n of names) {
-    //   correctNames.push(n[0].toUpperCase() + n.slice(1));
-    // }
-    // console.log(correctNames.join(' '));
-    correctNames.push(n.replace(n[0], n[0].toUpperCase()));
-  }
-  console.log(correctNames.join(' '));
-}
+// function capitalizeName(name) {
+//   const correctNames = [];
+//   const names = name.split(' ');
+//   for (const n of names) {
+//     //   correctNames.push(n[0].toUpperCase() + n.slice(1));
+//     // }
+//     // console.log(correctNames.join(' '));
+//     correctNames.push(n.replace(n[0], n[0].toUpperCase()));
+//   }
+//   console.log(correctNames.join(' '));
+// }
 
-capitalizeName('Jessica ann Smith Davis');
-capitalizeName('amar murga muric');
+// capitalizeName('Jessica ann Smith Davis');
+// capitalizeName('amar murga muric');
 
-//PADDING A STRING
-const message = 'Go to gate 23!';
-console.log(message.padStart(25, 'a').padEnd(30, 'a'));
-console.log('Murga'.padStart(25, 'a').padEnd(30, 'a'));
-console.log(message.padEnd(30, 'a'));
-console.log('Murga'.padEnd(30, 'a'));
+// //PADDING A STRING
+// const message = 'Go to gate 23!';
+// console.log(message.padStart(25, 'a').padEnd(30, 'a'));
+// console.log('Murga'.padStart(25, 'a').padEnd(30, 'a'));
+// console.log(message.padEnd(30, 'a'));
+// console.log('Murga'.padEnd(30, 'a'));
 
-function maskCreditCard(number) {
-  // const string = String(number);
-  const string = number + '';
-  const lastFour = string.slice(-4);
-  console.log(lastFour.padStart(19, '**** '));
-  console.log(lastFour.padStart(19, '**** ').split(' '));
-}
-maskCreditCard(1234123412341234);
-maskCreditCard('1234123412341234');
+// function maskCreditCard(number) {
+//   // const string = String(number);
+//   const string = number + '';
+//   const lastFour = string.slice(-4);
+//   console.log(lastFour.padStart(string.length, '*'));
+//   console.log(lastFour.padStart(string.length, '*').split(' '));
+//   // console.log(lastFour.padStart(19, '**** '));
+//   // console.log(lastFour.padStart(19, '**** ').split(' '));
+// }
+// maskCreditCard(1234123412341234);
+// maskCreditCard('1234123412341234');
 
+// //REPEAT
+// const message2 = 'Bad weather... All departures delayed...';
+
+// console.log(message2.repeat(5));
+
+// function planesInLine(n) {
+//   console.log(`There are ${n} planes in line: ${'✈ '.repeat(n)}`);
+// }
+// planesInLine(5);
 // console.log('Amar Muric'.slice(0, 'Amar Muric'.lastIndexOf(' ')));
 // console.log('Amar Muric'.slice('Amar Muric'.indexOf(' ') + 1));
 
@@ -694,3 +705,14 @@ maskCreditCard('1234123412341234');
 //   S = abc.length > 16 ? 'You wrote too many numbers' : (S += +abc[i]);
 // }
 // console.log(S);
+
+// const amar = 'Amar';
+// const array = [1, 2, 3, 4];
+// console.log(array.concat('hello'));
+// console.log(amar.concat('123'));
+
+// const array2 = [5, 6, 7, 8, 9, 10];
+
+// const array3 = [...array, ...array2];
+// const array4 = [...array.concat(array2)];
+// console.log(array3, array4);
