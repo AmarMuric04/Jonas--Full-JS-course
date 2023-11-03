@@ -514,16 +514,55 @@ const restaurant = {
 const airline = 'TAP Air Portugal';
 const plane = 'A320';
 console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log(plane[3]);
+console.log('B737'[0]);
+console.log(airline.length);
+console.log('B737'.length);
 
-const num = +prompt('Write any number between 1 and 1 * 10^16');
+console.log(airline.indexOf('r'));
+console.log(airline.lastIndexOf('r'));
 
-const array = [];
-array.push(String(num));
+console.log(airline.slice(4, 5));
+console.log('Murga'.slice(2, 4));
+console.log(airline.slice(0, airline.indexOf(' ')));
+console.log(airline.slice(airline.lastIndexOf(' ') + 1));
 
-const abc = [...array[0]];
+console.log(airline.slice(-2));
+console.log(airline.slice(1, -2));
 
-let S = 0;
-for (let i = 0; i < abc.length; i++) {
-  S = abc.length > 16 ? 'You wrote too many numbers' : (S += +abc[i]);
+const seats = ['11A', '11B', '22A', '22B', '01E', '02D', '53E', '33C', '53E'];
+const numOfMiddles = {};
+function checkMiddleSeat(seat) {
+  //B AND E ARE MIDDLE SEATS
+  // for (const [i, s] of seats.entries()) {
+  //   numOfMiddles[seats[i]]
+  //     ? numOfMiddles[seats[i]]++
+  //     : (numOfMiddles[seats[i]] = 1);
+  // }
+  // console.log(numOfMiddles);
+  for (const s of seats) {
+    if (s.slice(-1) == 'B' || s.slice(-1) == 'E') {
+      numOfMiddles.middle ? numOfMiddles.middle++ : (numOfMiddles.middle = 1);
+    } else {
+      numOfMiddles.notMiddle
+        ? numOfMiddles.notMiddle++
+        : (numOfMiddles.notMiddle = 1);
+    }
+  }
 }
-console.log(S);
+checkMiddleSeat(...seats);
+console.log(numOfMiddles);
+// const num = +prompt('Write any number between 1 and 1 * 10^16');
+
+// const array = [];
+// array.push(String(num));
+
+// const abc = [...array[0]];
+
+// let S = 0;
+// for (let i = 0; i < abc.length; i++) {
+//   S = abc.length > 16 ? 'You wrote too many numbers' : (S += +abc[i]);
+// }
+// console.log(S);
