@@ -355,7 +355,6 @@ const flights =
   "_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30";
 
 const splitFlights = flights.split("+");
-console.log(splitFlights);
 for (const delayed of splitFlights) {
   const delayedFlight = delayed.includes("Delayed")
     ? delayed.replace("Delayed", "🔴 Delayed")
@@ -364,16 +363,16 @@ for (const delayed of splitFlights) {
     delayedFlight.slice(0, delayedFlight.indexOf(";")) +
     delayedFlight.slice(delayedFlight.indexOf(";")).toUpperCase();
   const replaceToFrom = capitalize.replace(";", " from ");
-  const replaceToTo = replaceToFrom.replace(";", " To ");
+  const replaceToTo = replaceToFrom.replace(";", " to ");
   const replaceToSpace = replaceToTo.replaceAll("_", " ");
   const slice =
     replaceToSpace.slice(0, replaceToFrom.indexOf("from") + 8) +
     replaceToSpace.slice(
-      replaceToSpace.indexOf("To") - 1,
-      replaceToSpace.indexOf("To") + 6
+      replaceToSpace.indexOf("to") - 1,
+      replaceToSpace.indexOf("to") + 6
     ) +
     replaceToSpace.slice(replaceToSpace.indexOf(";"));
   const finalString = slice.trim().replace(";", " (");
   const abc = finalString.replace(":", "h");
-  console.log(abc.concat(":").replace(":", ")").padStart(55, " "));
+  console.log(abc.concat(")").padStart(100, " "));
 }
