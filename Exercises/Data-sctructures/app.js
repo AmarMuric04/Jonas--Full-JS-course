@@ -321,33 +321,59 @@ delayedDeparture    ✅✅✅✅✅
 Afterwards, test with your own test data!
 
 GOOD LUCK 😀
-*/ document.body.append(document.createElement("textarea"));
-document.body.append(document.createElement("button"));
-document.querySelector("button").style.width = "10vw";
-document.querySelector("button").style.height = "10vh";
-document.querySelector("button").style.backgroundColor = "red";
+// */ document.body.append(document.createElement("textarea"));
+// document.body.append(document.createElement("button"));
+// document.querySelector("button").style.width = "10vw";
+// document.querySelector("button").style.height = "10vh";
+// document.querySelector("button").style.backgroundColor = "red";
 
-document.querySelector("button").addEventListener("click", fixWords);
+// document.querySelector("button").addEventListener("click", fixWords);
 
-function fixWords(a) {
-  {
-    const text = document.querySelector("textarea").value;
-    const newText = text.toLowerCase().replaceAll("\n", " ").trim();
-    const newArrayText = [];
-    const arrayText = newText.split(" ");
-    for (const wordsTwo of arrayText) {
-      if (wordsTwo != "") {
-        newArrayText.push(wordsTwo);
-      }
-    }
-    for (const [i, words] of newArrayText.entries()) {
-      const correctWord =
-        words.slice(0, words.indexOf("_")) +
-        words
-          .slice(words.indexOf("_") + 1, words.indexOf("_") + 2)
-          .toUpperCase() +
-        words.slice(words.indexOf("_") + 2);
-      console.log(`${correctWord.padEnd(20, " ")} ${"✅" + "✅".repeat(i)}`);
-    }
-  }
+// function fixWords(a) {
+//   {
+//     const text = document.querySelector("textarea").value;
+//     const newText = text.toLowerCase().replaceAll("\n", " ").trim();
+//     const newArrayText = [];
+//     const arrayText = newText.split(" ");
+//     for (const wordsTwo of arrayText) {
+//       if (wordsTwo != "") {
+//         newArrayText.push(wordsTwo);
+//       }
+//     }
+//     for (const [i, words] of newArrayText.entries()) {
+//       const correctWord =
+//         words.slice(0, words.indexOf("_")) +
+//         words
+//           .slice(words.indexOf("_") + 1, words.indexOf("_") + 2)
+//           .toUpperCase() +
+//         words.slice(words.indexOf("_") + 2);
+//       console.log(`${correctWord.padEnd(20, " ")} ${"✅" + "✅".repeat(i)}`);
+//     }
+//   }
+// }
+const flights =
+  "_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30";
+
+const splitFlights = flights.split("+");
+console.log(splitFlights);
+for (const delayed of splitFlights) {
+  const delayedFlight = delayed.includes("Delayed")
+    ? delayed.replace("Delayed", "🔴 Delayed")
+    : delayed;
+  const capitalize =
+    delayedFlight.slice(0, delayedFlight.indexOf(";")) +
+    delayedFlight.slice(delayedFlight.indexOf(";")).toUpperCase();
+  const replaceToFrom = capitalize.replace(";", " from ");
+  const replaceToTo = replaceToFrom.replace(";", " To ");
+  const replaceToSpace = replaceToTo.replaceAll("_", " ");
+  const slice =
+    replaceToSpace.slice(0, replaceToFrom.indexOf("from") + 8) +
+    replaceToSpace.slice(
+      replaceToSpace.indexOf("To") - 1,
+      replaceToSpace.indexOf("To") + 6
+    ) +
+    replaceToSpace.slice(replaceToSpace.indexOf(";"));
+  const finalString = slice.trim().replace(";", " (");
+  const abc = finalString.replace(":", "h");
+  console.log(abc.concat(":").replace(":", ")").padStart(55, " "));
 }

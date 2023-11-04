@@ -716,3 +716,4 @@ const restaurant = {
 // const array3 = [...array, ...array2];
 // const array4 = [...array.concat(array2)];
 // console.log(array3, array4);
+
