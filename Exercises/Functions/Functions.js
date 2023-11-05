@@ -43,28 +43,32 @@ const poll = {
       `${this.question}\n${this.options.join("\n")}\n(Write option number)`
     );
     const type = prompt("array or string?");
-    isNaN(answer) || answer > 3 || answer < 0
+    isNaN(answer) || answer > this.answers.length || answer < this.answers[0]
       ? console.log("Invalid Answer")
       : this.answers[answer]++;
     poll.displayResults(type);
   },
   displayResults(type = "array") {
-    const string = [];
+    // const string = [];
     type !== "array" && type !== "string" ? (type = "array") : type;
     if (type == "string") {
-      for (const option of this.answers) {
-        string.push(`${option}`);
-      }
-      // console.log(`Poll results are ${string.join(", ")}`);
-      console.log(`Poll results are ${bonus1.join(", ")}`);
-      console.log(`Poll results are ${bonus2.join(", ")}`);
+      // for (const option of this.answers) {
+      //   string.push(`${option}`);
+      // }
+      console.log(this.answers.join(", "));
+      // console.log(`Poll results are ${bonus1.join(", ")}`);
+      // console.log(`Poll results are ${bonus2.join(", ")}`);
     } else if (type == "array") {
-      // console.log(this.answers);
-      console.log(bonus1);
-      console.log(bonus2);
+      console.log(this.answers);
+      // console.log(bonus1);
+      // console.log(bonus2);
     }
   },
 };
 document
   .querySelector(".poll")
   .addEventListener("click", poll.registerNewAnswer.bind(poll));
+
+poll.displayResults.call({ answers: [5, 2, 3] });
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, "string");
