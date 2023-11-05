@@ -164,7 +164,8 @@ const addVATone = addTaxOne.bind(null, 0.23);
 
 console.log(addVATone(23));
 
-const addTax = rate => value => console.log(value + value * rate);
+const addTax = rate => value => value + value * rate;
 
 const addVAT = addTax(0.23);
-addVAT(23);
+
+console.log(addVAT(23));
