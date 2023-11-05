@@ -47,31 +47,47 @@
 //PASSING BY VALUE AND PASSING BY REFERENCE
 //JAVASCRIPT DOES NOT HAVE PASSING BY REFERENCE
 
-function oneWord(str) {
-  return str.replace(/ /g, '').toLowerCase();
-}
-console.log(oneWord('ide gas nece stati'));
-
-function upperFirstWord(str) {
-  const [first, ...others] = str.split(' ');
-  return [first.toUpperCase(), ...others].join(' ');
-}
-console.log(upperFirstWord(' Ide gas ale ale'));
-
-//higher order function
-function transformer(str, fn) {
-  console.log(`Original string ${str}`);
-  console.log(`Transformed string ${fn(str)}`);
-  console.log(`Transformed by: ${fn.name}`);
-}
-
-transformer('Javascript is the best!!!', upperFirstWord);
-transformer('Javascript is the best!!!', oneWord);
-
-const high5 = function () {
-  console.log(`¯\_(ツ)_/¯`);
-};
-document.body.addEventListener('click', high5);
-const array = ['Amar', 'Murga', 'Muric'].forEach(high5); //value => {
-//   console.log(value.toLowerCase());
+// function oneWord(str) {
+//   return str.replace(/ /g, '').toLowerCase();
 // }
+// console.log(oneWord('ide gas nece stati'));
+
+// function upperFirstWord(str) {
+//   const [first, ...others] = str.split(' ');
+//   return [first.toUpperCase(), ...others].join(' ');
+// }
+// console.log(upperFirstWord(' Ide gas ale ale'));
+
+// //higher order function
+// function transformer(str, fn) {
+//   console.log(`Original string ${str}`);
+//   console.log(`Transformed string ${fn(str)}`);
+//   console.log(`Transformed by: ${fn.name}`);
+// }
+
+// transformer('Javascript is the best!!!', upperFirstWord);
+// transformer('Javascript is the best!!!', oneWord);
+
+// const high5 = function () {
+//   console.log(`¯\_(ツ)_/¯`);
+// };
+// document.body.addEventListener('click', high5);
+// const array = ['Amar', 'Murga', 'Muric'].forEach(high5); //value => {
+// //   console.log(value.toLowerCase());
+// // }
+
+function greet(greeting) {
+  return function (name) {
+    console.log(`${greeting}, ${name}`);
+  };
+}
+
+const greetWithHey = greet('Hey');
+greetWithHey('Amar');
+greetWithHey('Bro');
+greet('Hey')('Murga');
+
+//Challenge
+const greetArrow = greeting => name => console.log(`${greeting}, ${name}`);
+
+greetArrow('Hello')('Murga');
