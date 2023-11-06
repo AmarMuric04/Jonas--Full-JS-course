@@ -172,20 +172,69 @@
 
 //IIFE
 
-function runOnce() {
-  console.log('This will never run again.');
-}
-runOnce();
+// function runOnce() {
+//   console.log('This will never run again.');
+// }
+// runOnce();
 
-(function () {
-  console.log('This will never run again.');
-})();
+// (function () {
+//   console.log('This will never run again.');
+// })();
 
-(() => console.log('This will ALSO never run again.'))();
+// (() => console.log('This will ALSO never run again.'))();
 
-{
-  const isPrivate = 23;
-  var notPrivate = 23;
-}
-// console.log(isPrivate);
-console.log(notPrivate);
+// {
+//   const isPrivate = 23;
+//   var notPrivate = 23;
+// }
+// // console.log(isPrivate);
+// console.log(notPrivate);
+
+// const object = {
+//   name: 'amar',
+//   age: 18,
+// };
+
+// const objecttwo = Object.assign({}, object);
+// objecttwo.name = 'benjamin';
+
+// console.log(objecttwo, object);
+
+//CLOSURES
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+console.dir(booker);
+
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+g();
+f();
+//re-assigned f to h
+h();
+f();
+//re-assigned f to g
+g();
+f();
