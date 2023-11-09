@@ -200,7 +200,47 @@
 
 // console.log(objecttwo, object);
 
+// //CLOSURES
+// const secureBooking = function () {
+//   let passengerCount = 0;
+
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
+// const booker = secureBooking();
+// booker();
+// booker();
+// booker();
+
+// console.dir(booker);
+
+// let f;
+
+// const g = function () {
+//   const a = 23;
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
+// const h = function () {
+//   const b = 777;
+//   f = function () {
+//     console.log(b * 2);
+//   };
+// };
+// g();
+// f();
+// //re-assigned f to h
+// h();
+// f();
+// //re-assigned f to g
+// g();
+// f();
+
 //CLOSURES
+
 const secureBooking = function () {
   let passengerCount = 0;
 
@@ -209,32 +249,9 @@ const secureBooking = function () {
     console.log(`${passengerCount} passengers`);
   };
 };
+
 const booker = secureBooking();
 booker();
 booker();
 booker();
-
 console.dir(booker);
-
-let f;
-
-const g = function () {
-  const a = 23;
-  f = function () {
-    console.log(a * 2);
-  };
-};
-const h = function () {
-  const b = 777;
-  f = function () {
-    console.log(b * 2);
-  };
-};
-g();
-f();
-//re-assigned f to h
-h();
-f();
-//re-assigned f to g
-g();
-f();
