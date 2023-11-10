@@ -74,3 +74,8 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+(function () {
+  var a = (b = 5);
+})();
+console.log(a);
