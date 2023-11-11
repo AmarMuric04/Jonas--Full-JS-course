@@ -75,11 +75,50 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+// let arr = ['a', 'b', 'c', 'd', 'e'];
 
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-1));
-console.log(arr.slice(1, -1));
-console.log(arr.slice());
-console.log([...arr]);
+// console.log(arr.slice(2));
+// console.log(arr.slice(2, 4));
+// console.log(arr.slice(-1));
+// console.log(arr.slice(1, -1));
+// console.log(arr.slice());
+// console.log([...arr]);
+
+// //SPLICE
+// // console.log(arr.splice(2));
+// // arr.splice(-1);
+// // arr.splice(-1);
+// // arr.splice(-1);
+// console.log(arr);
+
+// //REVERSE
+
+// const arr2 = ['j', 'i', 'h', 'g', 'f'];
+// console.log(arr2.reverse());
+// console.log(arr2);
+
+// //CONCAT
+
+// const letters = arr.concat(arr2);
+// console.log(letters);
+
+// //JOIN
+
+// console.log(letters.join(' and then '));
+// letters.unshift(5); //ADDS WHATEVER TO THE START OF AN ARRAY
+// letters.pop(); //REMOVES THE LAST THING FROM AN ARRAY
+// letters.shift();
+// letters.shift();
+// letters.shift(); // REMOVES THE FIRST THING FORM AN ARRAY
+// console.log(letters);
+
+const arr = [23, 11, 64];
+
+console.log(arr[0]);
+console.log(arr.at(0));
+
+//getting the last element
+console.log(arr[arr.length - 1]);
+console.log(arr.slice(-1)[0]);
+
+console.log(arr.at(-1));
