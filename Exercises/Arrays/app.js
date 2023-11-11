@@ -17,3 +17,29 @@ TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
+const julia = [3, 5, 2, 12, 7];
+const kate = [4, 1, 15, 8, 3];
+const julia2 = [9, 16, 6, 8, 3];
+const kate2 = [10, 5, 6, 1, 4];
+let together = [];
+const text = [];
+const checkDogs = function (array1, array2) {
+  array1.forEach((age, i) => {
+    age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+  });
+  console.log("----kate----");
+  array2.forEach((age, i) => {
+    age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+  });
+  console.log(array1.slice(1, -2));
+  console.log(array1);
+  together = array1.slice(1, -2).concat(array2);
+  console.log(together);
+  together.forEach((age, i) => {
+    age >= 3
+      ? text.push(`Dog number ${i + 1} is an adult and is ${age} years old`)
+      : text.push(`Dog number ${i + 1} is still a puppy`);
+  });
+  console.log(text.join("\n"));
+};
+checkDogs(julia2, kate2);
