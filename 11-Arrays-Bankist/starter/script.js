@@ -165,3 +165,11 @@ displayMovements(account1.movements);
 // currenciesUnique.forEach(function (value, key, set) {
 //   console.log(`${key}: ${value}`);
 // });
+
+//DATA TRANSFORMATIONS
+
+//map loops through an array and modifies each element of the array, creating a new array at the end
+
+//filter loops through an array and filters out any element that doesnt pass the requirements that we set
+
+//reduce loops through an array and reduces the original array to a single variable depending on what we want to do with the array, we can add up all the elements etc...
