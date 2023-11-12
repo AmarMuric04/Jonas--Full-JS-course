@@ -85,6 +85,33 @@ const calcPrintBalance = function (movements) {
 };
 calcPrintBalance(account1);
 
+const calcSummary = function (movement) {
+  /*CALCULATING THE INTEREST*/
+  const interest = movement.movements
+    .filter(e => e > 0)
+    .map((e, i, arr) => (e * movement.interestRate) / 100)
+    .filter(e => e >= 1)
+    .reduce((acc, e, i, arr) => {
+      console.log(arr);
+      return acc + e;
+    });
+  labelSumInterest.textContent = `${interest.toFixed(1)}€`;
+
+  /*CALCULATING HOW MUCH WENT INTO THE ACCOUNT*/
+  const totalIn = movement.movements
+    .filter(e => e > 0)
+    .reduce((acc, e) => acc + e);
+  labelSumIn.textContent = `${(totalIn + interest).toFixed(1)}€`;
+
+  /*CALCULATING HOW MUCH WENT OUT THE ACCOUNT*/
+  const totalOut = movement.movements
+    .filter(e => e < 0)
+    .reduce((acc, e) => acc + e);
+  labelSumOut.textContent = `${Math.abs(totalOut)}€`;
+};
+calcSummary(account1);
+console.log(account1.interestRate);
+
 // const initials = [];
 // function getInitials(user) {
 //   // for (const initial of user.split(' ')) {
@@ -211,7 +238,7 @@ console.log(accounts);
 
 //reduce loops through an array and reduces the original array to a single variable depending on what we want to do with the array, we can add up all the elements etc...
 
-// const eurToUSD = 1.1;
+const eurToUSD = 1.1;
 // const EURtoRSD = 117.2;
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -283,9 +310,17 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //GET MAXIMUM VALUE OF THE MOVEMENT ARRAY
 
-const max = movements.reduce(
-  (acc, mov, i) => (acc > mov ? acc : mov),
-  movements[0]
-);
+// const max = movements.reduce(
+//   (acc, mov, i) => (acc > mov ? acc : mov),
+//   movements[0]
+// );
 
-console.log(max);
+// console.log(max);
+
+//CHAINING MAP REDUCE AND FILTER
+// const totalDepositsInUSD = movements
+//   .filter(mov => mov > 0)
+//   .map(mov => mov * eurToUSD)
+//   .reduce((acc, mov) => acc + mov);
+
+// console.log(totalDepositsInUSD);
