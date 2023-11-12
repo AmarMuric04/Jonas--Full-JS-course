@@ -324,3 +324,22 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   .reduce((acc, mov) => acc + mov);
 
 // console.log(totalDepositsInUSD);
+
+//THE FIND METHOD
+const firstWithdrawal = movements.find(e => e < 0);
+
+console.log(movements);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+console.log('--------USING FIND METHOD----------');
+const account = accounts.find(acc => acc.username === 'jd');
+console.log(account);
+
+console.log('--------FOROFLOOP----------');
+for (const acc of accounts) {
+  if (acc.username === 'jd') {
+    console.log(acc);
+    break;
+  }
+}
