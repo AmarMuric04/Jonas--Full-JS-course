@@ -17,29 +17,62 @@ TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
-const julia = [3, 5, 2, 12, 7];
-const kate = [4, 1, 15, 8, 3];
-const julia2 = [9, 16, 6, 8, 3];
-const kate2 = [10, 5, 6, 1, 4];
-let together = [];
-const text = [];
-const checkDogs = function (array1, array2) {
-  array1.forEach((age, i) => {
-    age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+// const julia = [3, 5, 2, 12, 7];
+// const kate = [4, 1, 15, 8, 3];
+// const julia2 = [9, 16, 6, 8, 3];
+// const kate2 = [10, 5, 6, 1, 4];
+// let together = [];
+// const text = [];
+// const checkDogs = function (array1, array2) {
+//   array1.forEach((age, i) => {
+//     age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+//   });
+//   console.log("----kate----");
+//   array2.forEach((age, i) => {
+//     age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+//   });
+//   console.log(array1.slice(1, -2));
+//   console.log(array1);
+//   together = array1.slice(1, -2).concat(array2);
+//   console.log(together);
+//   together.forEach((age, i) => {
+//     age >= 3
+//       ? text.push(`Dog number ${i + 1} is an adult and is ${age} years old`)
+//       : text.push(`Dog number ${i + 1} is still a puppy`);
+//   });
+//   console.log(text.join("\n"));
+// };
+// checkDogs(julia2, kate2);
+
+// Coding Challenge #2
+
+/* 
+Let's go back to Julia and Kate's study about dogs. This time, they want to convert dog ages to human ages and calculate the average age of the dogs in their study.
+
+Create a function 'calcAverageHumanAge', which accepts an arrays of dog's ages ('ages'), and does the following things in order:
+
+1. Calculate the dog age in human years using the following formula: if the dog is <= 2 years old, humanAge = 2 * dogAge. If the dog is > 2 years old, humanAge = 16 + dogAge * 4.
+2. Exclude all dogs that are less than 18 human years old (which is the same as keeping dogs that are at least 18 years old)
+3. Calculate the average human age of all adult dogs (you should already know from other challenges how we calculate averages 😉)
+4. Run the function for both test datasets
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
+const calcAverageHumanAge = function (ages) {
+  const humanAge = [];
+  ages.map(function (age) {
+    age <= 2 ? humanAge.push(2 * age) : humanAge.push(16 + age * 4);
   });
-  console.log("----kate----");
-  array2.forEach((age, i) => {
-    age >= 3 ? console.log(`${i + 1}: Adult`) : console.log(`${i + 1}: Puppy`);
+  console.log(humanAge);
+  const filtering = humanAge.filter((e) => e >= 18);
+  console.log(filtering);
+  const averages = filtering.reduce(function (acc, age) {
+    return acc + age;
   });
-  console.log(array1.slice(1, -2));
-  console.log(array1);
-  together = array1.slice(1, -2).concat(array2);
-  console.log(together);
-  together.forEach((age, i) => {
-    age >= 3
-      ? text.push(`Dog number ${i + 1} is an adult and is ${age} years old`)
-      : text.push(`Dog number ${i + 1} is still a puppy`);
-  });
-  console.log(text.join("\n"));
+  console.log((averages / filtering.length).toFixed(1));
 };
-checkDogs(julia2, kate2);
+calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
