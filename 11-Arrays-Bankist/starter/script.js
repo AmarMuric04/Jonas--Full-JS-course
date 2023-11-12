@@ -38,7 +38,7 @@ const accounts = [account1, account2, account3, account4];
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
-const labelBalance = document.querySelector('.balance__value');
+let labelBalance = document.querySelector('.balance__value');
 const labelSumIn = document.querySelector('.summary__value--in');
 const labelSumOut = document.querySelector('.summary__value--out');
 const labelSumInterest = document.querySelector('.summary__value--interest');
@@ -79,16 +79,19 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
-const user = 'Steven Thomas Williams'; //stw
-const user2 = 'Sarah Smith';
-const user3 = 'Jessica Davis';
-const initials = [];
-function getInitials(user) {
-  // for (const initial of user.split(' ')) {
-  //   initials.push(initial.slice(0, 1));
-  // }
-  // console.log(initials.join('').toLowerCase());
-}
+const calcPrintBalance = function (movements) {
+  const balance = movements.movements.reduce((acc, mov) => acc + mov);
+  labelBalance.innerHTML = `${balance} EUR`;
+};
+calcPrintBalance(account1);
+
+// const initials = [];
+// function getInitials(user) {
+//   // for (const initial of user.split(' ')) {
+//   //   initials.push(initial.slice(0, 1));
+//   // }
+//   // console.log(initials.join('').toLowerCase());
+// }
 // const username = user
 //   .toLowerCase()
 //   .split(' ')
@@ -245,17 +248,44 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(movDesc.join('\n'));
 
 //FILTER METHOD
-console.log('-----------FILTER-----------');
-const deposits = movements.filter(e => e > 0);
-const withdrawals = movements.filter(e => e < 0);
+// console.log('-----------FILTER-----------');
+// const deposits = movements.filter(e => e > 0);
+// const withdrawals = movements.filter(e => e < 0);
 
-console.log(deposits);
-console.log(withdrawals);
-console.log('-----------FOREACH-----------');
-const depositsFor = [];
-const withdrawalFor = [];
-for (const depo of movements) {
-  depo > 0 ? depositsFor.push(depo) : withdrawalFor.push(depo);
-}
-console.log(depositsFor);
-console.log(withdrawalFor);
+// console.log(deposits);
+// console.log(withdrawals);
+// console.log('-----------FOREACH-----------');
+// const depositsFor = [];
+// const withdrawalFor = [];
+// for (const depo of movements) {
+//   depo > 0 ? depositsFor.push(depo) : withdrawalFor.push(depo);
+// }
+// console.log(depositsFor);
+// console.log(withdrawalFor);
+
+//REDUCE METHOD
+
+// console.log(movements);
+// accumulator ==> snowball
+// let originalBalance = 40000;
+// // const balance = movements.reduce(function (acc, curr, i, arr) {
+// //   return acc - curr;
+// // });
+// const balance = movements.reduce((acc, curr) => acc + curr, originalBalance);
+// console.log(balance);
+// // console.log(originalBalance + balance);
+
+// let balance2 = 0;
+// for (const mov of movements) {
+//   balance2 += mov;
+// }
+// console.log(balance2);
+
+//GET MAXIMUM VALUE OF THE MOVEMENT ARRAY
+
+const max = movements.reduce(
+  (acc, mov, i) => (acc > mov ? acc : mov),
+  movements[0]
+);
+
+console.log(max);
