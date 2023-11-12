@@ -78,6 +78,40 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const user = 'Steven Thomas Williams'; //stw
+const user2 = 'Sarah Smith';
+const user3 = 'Jessica Davis';
+const initials = [];
+function getInitials(user) {
+  // for (const initial of user.split(' ')) {
+  //   initials.push(initial.slice(0, 1));
+  // }
+  // console.log(initials.join('').toLowerCase());
+}
+// const username = user
+//   .toLowerCase()
+//   .split(' ')
+//   .map(e => e[0])
+//   .join('');
+// console.log(username);
+
+const createUsernames = function (accs) {
+  accounts.forEach(acc => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(e => e[0])
+      .join('');
+  });
+
+  // user.username ? user.username : (user.username = username);
+  // return username;
+};
+createUsernames(accounts);
+console.log(accounts);
+// console.log(account1);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -173,3 +207,55 @@ displayMovements(account1.movements);
 //filter loops through an array and filters out any element that doesnt pass the requirements that we set
 
 //reduce loops through an array and reduces the original array to a single variable depending on what we want to do with the array, we can add up all the elements etc...
+
+// const eurToUSD = 1.1;
+// const EURtoRSD = 117.2;
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// // const movementsUSD = movements.map(function (e) {
+// //   return (e * eurToUSD).toFixed(0);
+// // });
+// const movementsUSD = movements.map(e => e * eurToUSD);
+// console.log(movementsUSD);
+// function transfer(currency) {
+//   const newArray = [];
+//   return function (array) {
+//     array.forEach(e => {
+//       newArray.push(e * currency);
+//     });
+//     console.log(newArray);
+//   };
+// }
+// const EUR = transfer(eurToUSD);
+// const RSD = transfer(EURtoRSD);
+// EUR(movements);
+// RSD(movements);
+// const movementsUSDfor = [];
+// for (const movementsInUSD of movements) {
+//   movementsUSDfor.push(movementsInUSD * eurToUSD);
+// }
+// console.log(movementsUSDfor);
+
+// const movDesc = movements.map((e, i) => {
+//   return `Movement ${i + 1}: ${e > 0 ? `deposited` : `withdrew`} ${Math.abs(
+//     e
+//   )}`;
+// });
+
+// console.log(movDesc.join('\n'));
+
+//FILTER METHOD
+console.log('-----------FILTER-----------');
+const deposits = movements.filter(e => e > 0);
+const withdrawals = movements.filter(e => e < 0);
+
+console.log(deposits);
+console.log(withdrawals);
+console.log('-----------FOREACH-----------');
+const depositsFor = [];
+const withdrawalFor = [];
+for (const depo of movements) {
+  depo > 0 ? depositsFor.push(depo) : withdrawalFor.push(depo);
+}
+console.log(depositsFor);
+console.log(withdrawalFor);
