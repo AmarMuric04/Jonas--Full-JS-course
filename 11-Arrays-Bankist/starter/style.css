@@ -33,6 +33,7 @@ nav {
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
+  width: 30%;
 }
 
 .logo {
@@ -41,6 +42,8 @@ nav {
 
 .login {
   display: flex;
+  width: 30%;
+  justify-content: end;
 }
 
 .login__input {
@@ -127,14 +130,14 @@ nav {
   grid-row: 2 / span 3;
   background-color: #fff;
   border-radius: 1rem;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .movements__row {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 
 .movements__type {
@@ -294,4 +297,26 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+.change__theme {
+  background-color: black;
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
+  padding: 1vh 2vh;
+  border-radius: 1vh;
+  cursor: pointer;
+  transition: all 1s;
+}
+.change__theme button {
+  background-color: black;
+  color: yellow;
+  font-size: 3vh;
+  border: none;
+  transform: rotate(45deg);
+  cursor: pointer;
+  transition: all 1s;
+}
+.hidden {
+  display: none;
 }

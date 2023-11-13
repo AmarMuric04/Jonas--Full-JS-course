@@ -41,6 +41,7 @@ const account5 = {
 };
 
 const accounts = [account1, account2, account3, account4, account5];
+const moon = document.querySelector('.moon');
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -53,6 +54,8 @@ const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
+
+const btnChangeTheme = document.querySelector('.change__theme');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
@@ -67,6 +70,8 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+containerApp.classList.add('hidden');
 
 const displayMovements = function (movement, sort = false) {
   const movs = sort
@@ -168,6 +173,7 @@ btnLogin.addEventListener('click', function (event) {
   );
   /*IF LOGIN INPUTS ARE CORRECT AND MATCHING*/
   if (+inputLoginPin.value === currentAccount?.pin) {
+    containerApp.classList.remove('hidden');
     console.log('Logged in');
 
     //DISPLAY WELCOME MESSAGE <NAME> + UI
@@ -250,7 +256,7 @@ btnClose.addEventListener('click', function (e) {
     accounts.splice(index, 1);
 
     //UPDATE UI
-    containerApp.style.opacity = 0;
+    containerApp.classList.add('hidden');
     containerApp.style.transition = '0s';
 
     //CLEAR THE INPUT FIELDS
@@ -276,6 +282,39 @@ const updateUI = function () {
   /*DISPLAYING SUMMARY */
   calcSummary(currentAccount);
 };
+
+/*CHANGING THEMES FROM DARK TO LIGHT */
+let stateOfTheme = true;
+function changeTheme(state = false) {
+  if (state === true) {
+    document.body.style.backgroundColor = '#222';
+    document.body.style.color = 'white';
+    containerMovements.style.backgroundColor = '#222';
+    containerMovements.style.scrollbarColor = 'black';
+    inputLoginPin.style.backgroundColor = '#222';
+    inputLoginUsername.style.backgroundColor = '#222';
+    btnSort.style.color = 'white';
+    btnChangeTheme.style.backgroundColor = 'white';
+    moon.style.backgroundColor = 'white';
+    moon.style.color = 'black';
+  } else {
+    document.body.style.backgroundColor = 'white';
+    document.body.style.color = 'black';
+    containerMovements.style.backgroundColor = 'white';
+    containerMovements.style.scrollbarColor = 'white';
+    inputLoginPin.style.backgroundColor = 'white';
+    inputLoginUsername.style.backgroundColor = 'white';
+    btnSort.style.color = 'black';
+    btnChangeTheme.style.backgroundColor = 'black';
+    moon.style.backgroundColor = 'black';
+    moon.style.color = 'white';
+  }
+}
+btnChangeTheme.addEventListener('click', function () {
+  changeTheme(stateOfTheme);
+  stateOfTheme = !stateOfTheme;
+});
+
 // console.log(account1);
 
 /////////////////////////////////////////////////
