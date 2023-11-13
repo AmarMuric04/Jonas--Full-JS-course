@@ -307,7 +307,7 @@ function changeTheme(state = false) {
     btnSort.style.color = 'black';
     btnChangeTheme.style.backgroundColor = 'black';
     moon.style.backgroundColor = 'black';
-    moon.style.color = 'white';
+    moon.style.color = 'yellow';
   }
 }
 btnChangeTheme.addEventListener('click', function () {
@@ -530,45 +530,91 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(movements.some((mov, i, arr) => mov > 1500));
 
 //every method
-console.log(account4.movements.every((mov, i, arr) => mov > 0));
+// console.log(account4.movements.every((mov, i, arr) => mov > 0));
 
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
 
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat(2));
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat(2));
 
-//flat
-const accountMovements = accounts.map(acc => acc.movements).flat();
-console.log(accountMovements);
+// //flat
+// const accountMovements = accounts.map(acc => acc.movements).flat();
+// console.log(accountMovements);
 
-//flatMap
-const accountMovements2 = accounts.flatMap(mov => accounts.movements);
+// //flatMap
+// const accountMovements2 = accounts.flatMap(mov => accounts.movements);
 
-const overallBalance = accountMovements.reduce((acc, mov) => acc + mov, 0);
-const overallDeposit = accountMovements
-  .filter(mov => mov > 0)
-  .reduce((acc, mov) => acc + mov, 0);
-const overallWithdrawal = accountMovements
-  .filter(mov => mov < 0)
-  .reduce((acc, mov) => acc + Math.abs(mov), 0);
+// const overallBalance = accountMovements.reduce((acc, mov) => acc + mov, 0);
+// const overallDeposit = accountMovements
+//   .filter(mov => mov > 0)
+//   .reduce((acc, mov) => acc + mov, 0);
+// const overallWithdrawal = accountMovements
+//   .filter(mov => mov < 0)
+//   .reduce((acc, mov) => acc + Math.abs(mov), 0);
 
-console.log(overallBalance, overallDeposit, -overallWithdrawal);
+// console.log(overallBalance, overallDeposit, -overallWithdrawal);
 
-//sorting && sort method
+// //sorting && sort method
 
-//strings
-const owners = ['Jonas', 'Zack', 'Adam', 'Martha'];
-console.log(owners.sort());
+// //strings
+// const owners = ['Jonas', 'Zack', 'Adam', 'Martha'];
+// console.log(owners.sort());
 
-//numbers
-// console.log(movements.sort().reverse());
-//return <0; a before b( keep order )
-//return >0; b before a ( switch order )
+// //numbers
+// // console.log(movements.sort().reverse());
+// //return <0; a before b( keep order )
+// //return >0; b before a ( switch order )
 
-// movements.sort((a, b) => {
-//   if (a > b) return 1;
-//   if (b > a) return -1;
-// });
-movements.sort((a, b) => a - b);
-console.log(movements);
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (b > a) return -1;
+// // });
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+// //Empty arrays plus fill method
+// const x = new Array(7);
+// console.log(x);
+// x.fill(5, 5, 6);
+// console.log(x);
+
+// //full arrays with fill method
+// arr.fill(3, 2, 7);
+// console.log(arr);
+
+// //Array.from()
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
+
+// //100 random dice rolls
+// const rolls = Array.from(
+//   { length: 100 },
+//   (_, i) => Math.trunc(Math.random() * 6) + 1
+// );
+// console.log(rolls.sort((a, b) => a - b));
+// console.log(rolls.indexOf(2), 1);
+// console.log(rolls.indexOf(3) - rolls.indexOf(2), 2);
+// console.log(rolls.indexOf(4) - rolls.indexOf(3), 3);
+// console.log(rolls.indexOf(5) - rolls.indexOf(4), 4);
+// console.log(rolls.indexOf(6) - rolls.indexOf(5), 5);
+// console.log(rolls.length - rolls.indexOf(6), 6);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => +el.textContent.replace('€', '')
+  );
+  console.log(movementsUI);
+
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(
+    el => +el.textContent.replace('€', '')
+  );
+  console.log(movementsUI2);
+});
