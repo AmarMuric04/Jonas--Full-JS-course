@@ -84,9 +84,9 @@ const displayMovements = function (movement) {
   });
 };
 
-const calcPrintBalance = function (movements) {
-  const balance = movements.movements.reduce((acc, mov) => acc + mov);
-  labelBalance.innerHTML = `${balance}€`;
+const calcPrintBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov);
+  labelBalance.innerHTML = `${acc.balance}€`;
 };
 
 const calcSummary = function (movement) {
@@ -150,11 +150,14 @@ createUsernames(accounts);
 //event handler
 let currentAccount;
 
+/*LOGIN*/
 btnLogin.addEventListener('click', function (event) {
   //prevents page from reloading
   event.preventDefault();
   // console.log('login');
 
+  /*SETTING THE CURRENT ACCOUNT TO WHATEVER USERNAME THE USER PROVIDES INSIDE
+  USERNAME INPUT*/
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
@@ -169,17 +172,9 @@ btnLogin.addEventListener('click', function (event) {
     }`;
 
     containerApp.style.opacity = '10';
-
-    /*CALCULATING THE BALANCE AND THE MOVEMENT OF THE CURRENT ACCOUNT*/
-
-    //DISPLAY MOVEMENTS
-    displayMovements(currentAccount);
-
-    //DISPLAY SUMMARY
-    calcSummary(currentAccount);
-
-    //DISPLAY BALANCE
-    calcPrintBalance(currentAccount);
+    containerApp.style.transition = '1s';
+    /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
+    updateUI();
 
     //CLEAR THE INPUT FIELDS
     inputLoginPin.value = inputLoginUsername.value = '';
@@ -193,30 +188,67 @@ btnTransfer.addEventListener('click', function (e) {
   const receiverAcc = accounts.find(
     acc => acc?.username === inputTransferTo.value
   );
-  if (amount > 0 && +labelBalance.textContent > amount) {
-    currentAccount.movements.push(Number(-amount));
-    receiverAcc.movements.push(Number(amount));
+  /*CHECKING IF THE AMOUNT THAT WE WANT TO TRANSFER IS BIGGER 
+  THAN 1 AND LESS THAN OR EQUAL THAN OUR CURRENT BALANCE */
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAcc !== currentAccount &&
+    receiverAcc
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
 
-    //DISPLAY MOVEMENTS AFTER TRANSFER
-    displayMovements(currentAccount);
-
-    //DISPLAY SUMMARY AFTER TRANSFER
-    calcSummary(currentAccount);
-
-    //DISPLAY BALANCE AFTER TRANSFER
-    calcPrintBalance(currentAccount);
-
-    console.log(currentAccount.movements);
-    console.log(amount, receiverAcc);
-
-    console.log('transferred');
-  } else console.log('Error');
+    /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
+    updateUI();
+  } /*IF THE TRANFER DOESNT MEET THE REQUIREMENTS*/ else console.log('Error');
 
   //CLEAR THE INPUT FIELDS
   inputTransferAmount.value = inputTransferTo.value = '';
   inputLoginPin.blur();
 });
 
+/*REQUEST A LOAN*/
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const request = +inputLoanAmount.value;
+  /*CHECK IF THE USER HAS A DEPOSIT THATS AT LEAST 10% OF THE REQUESTED LOAN */
+  const requestRequirement = currentAccount.movements.some(
+    deposit => deposit >= request / 10
+  );
+  /*IF THE USER HAS A DEPOSIT THATS AT LEAST 10% OF THE REQUEST*/
+  if (requestRequirement) {
+    currentAccount.movements.push(request);
+    setTimeout(() => {
+      updateUI();
+    }, /*1000 DOLLARS IS EQUAL TO 1 SECOND OF WAITING TIME*/ 1000 * (request / 1000));
+  } /*IF HE DOESNT*/ else console.log('Error');
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    +inputClosePin.value === currentAccount.pin
+  ) {
+    console.log('Deleted');
+
+    //FIND INDEX OF CURRENT ACCOUNT
+    const index = accounts.findIndex(acc => acc === currentAccount);
+
+    //DELETE THE ACCOUNT
+    accounts.splice(index, 1);
+
+    //UPDATE UI
+    containerApp.style.opacity = 0;
+    containerApp.style.transition = '0s';
+
+    //CLEAR THE INPUT FIELDS
+    inputTransferAmount.value = inputTransferTo.value = '';
+    inputLoginPin.blur();
+  } else console.log('Error');
+});
 // console.log(account1);
 
 /////////////////////////////////////////////////
@@ -420,3 +452,13 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //     break;
 //   }
 // }
+
+//some and every method
+// console.log(movements);
+// //equality
+// console.log(movements.includes(-130));
+// //condition
+
+// console.log(movements.some((mov, i, arr) => mov === -130));
+
+// console.log(movements.some((mov, i, arr) => mov > 1500));
