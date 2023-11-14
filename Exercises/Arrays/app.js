@@ -124,19 +124,68 @@ const dogs = [
   { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
   { weight: 32, curFood: 340, owners: ["Michael"] },
 ];
-// recommendedFood = weight ** 0.75 * 28;
 
+//1. GIVING EVERY DOG A RECOMMENDED FOOD PROPORTION
 dogs.map((e) => (e.recommendedFood = +(e.weight ** 0.75 * 28).toFixed(0)));
 
-console.log(dogs.find((e) => (e.owners = "Sarah")));
-
-console.log(dogs[0].recommendedFood);
-console.log(dogs[0].recommendedFood - dogs[0].recommendedFood / 10);
-
 console.log(
-  dogs.filter(
+  dogs.map((e) => (e.recommendedFood = +(e.weight ** 0.75 * 28).toFixed(0)))
+);
+//2. FINDING SARAHS DOG AND SEEING IF ITS HEALTHY
+const sarahsDog = dogs.find((e) => e.owners.includes("Sarah"));
+sarahsDog.curFood <=
+  sarahsDog.recommendedFood + sarahsDog.recommendedFood / 10 &&
+sarahsDog.curFood >= sarahsDog.recommendedFood - sarahsDog.recommendedFood / 10
+  ? console.log(`Sarahs dog is healthy`)
+  : console.log(
+      `Sarahs dog is unhealthy, current dogs food is ${
+        sarahsDog.curFood
+      }, it should be between ${
+        sarahsDog.recommendedFood + sarahsDog.recommendedFood / 10
+      } - ${sarahsDog.recommendedFood - sarahsDog.recommendedFood / 10} `
+    );
+
+//3. ARRAY OF OWNERS WHOS DOGS EAT TOO MUCH
+const ownersEatTooMuch = dogs.reduce((arr, dog) => {
+  dog.curFood > dog.recommendedFood + dog.recommendedFood / 10
+    ? arr.push(dog.owners)
+    : arr;
+  return arr;
+}, []);
+
+//3. ARRAY OF OWNERS WHOS DOGS DONT EAT ENOUGH
+const ownersEatTooLittle = dogs.reduce((arr, dog) => {
+  dog.curFood < dog.recommendedFood - dog.recommendedFood / 10
+    ? arr.push(dog.owners)
+    : arr;
+  return arr;
+}, []);
+
+//4. CONSOLE LOGGING A MESSAGE
+console.log(`${ownersEatTooMuch.flat().join(" and ")}'s dog eat too much!`);
+console.log(
+  `${ownersEatTooLittle.flat().join(" and ")}'s dog doesn't eat enough!`
+);
+//5. CHECKING IF A DOG EATS EXACTLY HOW MUCH IT SHOULD EAT
+console.log(dogs.reduce((boolean, e) => e.curFood === e.recommendedFood));
+
+//6. CHECKING IF A DOG EATS AN OK AMOUNT OF FOOD
+console.log(
+  dogs.some(
     (e) =>
-      e.curFood <= dogs[0].recommendedFood + dogs[0].recommendedFood / 10 &&
-      e.curFood >= dogs[0].recommendedFood - dogs[0].recommendedFood / 10
+      e.curFood >= e.recommendedFood - e.recommendedFood * 0.1 &&
+      e.curFood <= e.recommendedFood + e.recommendedFood * 0.1
   )
 );
+
+//7. CREATING AN ARRAY OF THE OWNERS WHOS DOGS EAT OK
+console.log(
+  dogs.find(
+    (e) =>
+      e.curFood >= e.recommendedFood - e.recommendedFood * 0.1 &&
+      e.curFood <= e.recommendedFood + e.recommendedFood * 0.1
+  ).owners
+);
+
+//8.
+console.log(dogs.sort((a, b) => b.recommendedFood - a.recommendedFood));
