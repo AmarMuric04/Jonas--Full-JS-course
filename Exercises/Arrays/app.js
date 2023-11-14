@@ -60,32 +60,83 @@ TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
 TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
-*/
-const calcAverageHumanAge = function (ages) {
-  const humanAge = ages.map((age) => (age <= 2 ? 2 * age : 16 + age * 4));
-  const filtering = humanAge.filter((e) => e >= 18);
-  const averages = filtering.reduce((acc, age) => acc + age);
-  console.log((averages / filtering.length).toFixed(1));
-};
-calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+// */
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages.map((age) => (age <= 2 ? 2 * age : 16 + age * 4));
+//   const filtering = humanAge.filter((e) => e >= 18);
+//   const averages = filtering.reduce((acc, age) => acc + age);
+//   console.log((averages / filtering.length).toFixed(1));
+// };
+// calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
-// Coding Challenge #3
+// // Coding Challenge #3
+
+// /*
+// Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+// TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+// TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+// GOOD LUCK 😀
+// */
+// const calcAverageHumanAge2 = function (ages) {
+//   const average = ages
+//     .map((age) => (age <= 2 ? 2 * age : 16 + age * 4))
+//     .filter((e) => e >= 18)
+//     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+//   console.log(average);
+// };
+// calcAverageHumanAge2([5, 2, 4, 1, 15, 8, 3]);
+// calcAverageHumanAge2([16, 6, 10, 5, 6, 1, 4]);
+
+// Coding Challenge #4
 
 /* 
-Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
 
-TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
-TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Formula: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+
+
+TEST DATA:
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
 
 GOOD LUCK 😀
 */
-const calcAverageHumanAge2 = function (ages) {
-  const average = ages
-    .map((age) => (age <= 2 ? 2 * age : 16 + age * 4))
-    .filter((e) => e >= 18)
-    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
-  console.log(average);
-};
-calcAverageHumanAge2([5, 2, 4, 1, 15, 8, 3]);
-calcAverageHumanAge2([16, 6, 10, 5, 6, 1, 4]);
+const dogs = [
+  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, curFood: 200, owners: ["Matilda"] },
+  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, curFood: 340, owners: ["Michael"] },
+];
+// recommendedFood = weight ** 0.75 * 28;
+
+dogs.map((e) => (e.recommendedFood = +(e.weight ** 0.75 * 28).toFixed(0)));
+
+console.log(dogs.find((e) => (e.owners = "Sarah")));
+
+console.log(dogs[0].recommendedFood);
+console.log(dogs[0].recommendedFood - dogs[0].recommendedFood / 10);
+
+console.log(
+  dogs.filter(
+    (e) =>
+      e.curFood <= dogs[0].recommendedFood + dogs[0].recommendedFood / 10 &&
+      e.curFood >= dogs[0].recommendedFood - dogs[0].recommendedFood / 10
+  )
+);
