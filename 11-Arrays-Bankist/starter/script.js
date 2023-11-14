@@ -606,15 +606,88 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(rolls.indexOf(6) - rolls.indexOf(5), 5);
 // console.log(rolls.length - rolls.indexOf(6), 6);
 
-labelBalance.addEventListener('click', function () {
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => +el.textContent.replace('€', '')
-  );
-  console.log(movementsUI);
+// labelBalance.addEventListener('click', function () {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => +el.textContent.replace('€', '')
+//   );
+//   console.log(movementsUI);
 
-  const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(
-    el => +el.textContent.replace('€', '')
-  );
-  console.log(movementsUI2);
-});
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(
+//     el => +el.textContent.replace('€', '')
+//   );
+//   console.log(movementsUI2);
+// });
+const accountMovements = accounts.flatMap((mov, i) => mov.movements);
+// const overallBalance = accountMovements.reduce((acc, mov) => acc + mov, 0);
+// const overallDeposit = accountMovements
+//   .filter(mov => mov > 0)
+//   .reduce((acc, mov) => acc + mov, 0);
+// const overallWithdrawal = accountMovements
+//   .filter(mov => mov < 0)
+//   .reduce((acc, mov) => acc + Math.abs(mov), 0);
+
+// console.log(overallBalance, overallDeposit, -overallWithdrawal);
+
+//2.
+const numDeposits1000 = accountMovements.filter(e => e >= 1000).length;
+
+console.log(numDeposits1000);
+
+const numDeposits1000reduce = accountMovements.reduce((acc, curr) => {
+  return curr >= 1000 ? ++acc : acc;
+}, 0);
+console.log(numDeposits1000reduce);
+
+const numDeposits1000reduce2 = accountMovements.reduce((acc, dpst) => {
+  dpst >= 1000 ? acc.push(dpst) : acc;
+  return acc;
+}, []);
+console.log(numDeposits1000reduce2);
+
+//prefixed ++ operator
+let a = 10;
+console.log(a++);
+console.log(a);
+
+// 3.
+
+const { deposits, withdrawals } = accountMovements.reduce(
+  (sums, curr) => {
+    // curr > 0 ? (sums.deposits += curr) : (sums.withdrawals += curr);
+    sums[curr > 0 ? 'deposits' : 'withdrawals'] += curr;
+    return sums;
+  },
+  { deposits: 0, withdrawals: 0 }
+);
+console.log(deposits, withdrawals);
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+
+function stringToTitle(string) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+  // const modify = string
+  //   .split(' ')
+  //   .map(e => (exceptions.includes(e) ? e : e[0].toUpperCase() + e.slice(1)));
+  // console.log(modify.join(' '));
+  const lookForExceptions = string.split(' ').reduce((a, b) => {
+    exceptions.includes(b)
+      ? a.push(b.toLowerCase())
+      : // : a.push(b.slice(0, 1).toUpperCase() + b.slice(1).toLowerCase());
+        a.push(capitalize(b));
+
+    return a;
+  }, []);
+  // const transformArrayToString = lookForExceptions.join(' ');
+  // const upperCaseFirstLetter =
+  //   transformArrayToString.slice(0, 1).toUpperCase() +
+  //   transformArrayToString.slice(1);
+  //console.log(uppeCaseFirstLetter)
+  console.log(capitalize(lookForExceptions.join(' ')));
+}
+
+stringToTitle(
+  'and i like to go outside and play in an area with my favorite friends or family members, but sometimes a man shows up on one of the stairs that we play on and tells us to leave'
+);
