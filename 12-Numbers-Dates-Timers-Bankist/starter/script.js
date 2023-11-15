@@ -82,21 +82,27 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 containerApp.classList.add('hidden');
 
-const displayMovements = function (movement, sort = false) {
+const displayMovements = function (acc, sort = false) {
   const movs = sort
-    ? movement.movements.slice().sort((a, b) => a - b)
-    : movement.movements;
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   containerMovements.innerHTML = '';
 
   movs.forEach(function (mov, i) {
     let move = mov > 0 ? 'deposit' : 'withdrawal';
 
+    const date = new Date(acc.movementsDates[i]);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(1, '0');
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
+
     const html = `<div class="movements__row">
           <div class="movements__type movements__type--${move}">${
       i + 1
-    } ${move}</div>
-          <div class="movements__value">${mov}€</div>
+    } ${move}</div> <div class="movements__date">${displayDate}</div>
+          <iv class="movements__value">${mov}€</div>
         </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
     // containerMovements.innerHTML += html;
@@ -193,6 +199,16 @@ btnLogin.addEventListener('click', function (event) {
 
     containerApp.style.opacity = '10';
     containerApp.style.transition = '1s';
+
+    //GETTING DATE AND DISPLAYING IT  const now = new Date();
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, 0);
+    const minutes = String(now.getMinutes()).padStart(2, 0);
+
+    labelDate.textContent = `${day}/${month}/${year}, ${hours}:${minutes}`;
     /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
     updateUI();
 
@@ -220,6 +236,9 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDates.push(new Date().toISOString());
+
     /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
     updateUI();
   } /*IF THE TRANFER DOESNT MEET THE REQUIREMENTS*/ else console.log('Error');
@@ -232,14 +251,19 @@ btnTransfer.addEventListener('click', function (e) {
 /*REQUEST A LOAN*/
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
+
   /*OR Math.trunc() because we are working exclusively with positive numbers */
   const request = Math.floor(inputLoanAmount.value);
+
   /*CHECK IF THE USER HAS A DEPOSIT THATS AT LEAST 10% OF THE REQUESTED LOAN */
   const requestRequirement = currentAccount.movements.some(
     deposit => deposit >= request / 10
   );
   /*IF THE USER HAS A DEPOSIT THATS AT LEAST 10% OF THE REQUEST (+)*/
   if (requestRequirement && request > 0) {
+    //Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+
     currentAccount.movements.push(request);
     inputLoanAmount.value = '';
     inputLoginPin.blur();
@@ -512,26 +536,26 @@ btnChangeTheme.addEventListener('click', function () {
 
 //working with dates
 
-const future = new Date(2037, 10, 19, 15, 23);
-console.log(future);
-console.log(future.getFullYear());
-console.log(future.getMonth());
-console.log(future.getDate());
-console.log(future.getDay());
-console.log(future.getHours());
-console.log(future.getMinutes());
-console.log(future.getSeconds());
-console.log(future.getMilliseconds());
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(future);
+// console.log(future.getFullYear());
+// console.log(future.getMonth());
+// console.log(future.getDate());
+// console.log(future.getDay());
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.getMilliseconds());
 
-console.log(future.toISOString());
-console.log(future.getTime()); // milliseconds passed since 1970
+// console.log(future.toISOString());
+// console.log(future.getTime()); // milliseconds passed since 1970
 
-console.log(new Date(1596388836977));
+// console.log(new Date(1596388836977));
 
-console.log(Date.now());
+// console.log(Date.now());
 
-future.setFullYear(2040);
-future.setMonth(2040);
-future.setMinutes(2040);
-//...
-console.log(future);
+// future.setFullYear(2040);
+// future.setMonth(2040);
+// future.setMinutes(2040);
+// //...
+// console.log(future);
