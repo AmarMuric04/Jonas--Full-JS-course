@@ -428,17 +428,110 @@ btnChangeTheme.addEventListener('click', function () {
 // });
 
 //287,460,000,000
-const diameter = 287_460_000_000;
+// const diameter = 287_460_000_000;
 
-console.log(diameter);
+// console.log(diameter);
 
-const price = 345_99;
-console.log(price);
+// const price = 345_99;
+// console.log(price);
 
-const transferFee1 = 15_00;
-const transferFee2 = 1_500;
+// const transferFee1 = 15_00;
+// const transferFee2 = 1_500;
 
-const PI = 3.1_415;
-console.log(PI);
+// const PI = 3.1_415;
+// console.log(PI);
 
-console.log(Number('230000'));
+// console.log(Number('230000'));
+
+//bigint
+// console.log(2 ** 53 - 1);
+
+// console.log(Number.MAX_SAFE_INTEGER);
+
+// console.log(2 ** 53 + 1); //not precise
+
+// console.log(typeof 3725897238957289375923675937258972389572893759236759n);
+// console.log(3725897238957289375923675937258972389572893759236759n);
+// console.log(3725897238957289375923675937258972389572893759236759n);
+// console.log(
+//   typeof BigInt(3725897238957289375923675937258972389572893759236759)
+// );
+// console.log(BigInt(3725897238957289375923675937258972389572893759236759));
+// console.log(BigInt(3725897238957289375923675937258972389572893759236759));
+
+// //use bigInt for smaller numbers
+
+// //operations
+
+// console.log(
+//   (3725897238957289375923675937258972389572893759236759n +
+//     3725897238957289375923675937258972389572893759236759n) /
+//     2n
+// );
+
+//math methods dont work on bigint numbers
+
+//when working with bigint, every number has to be turned into a bigint
+
+// const huge = 374587238583275832785237n;
+
+// const num = 23;
+
+// // console.log(huge + num); //error
+
+// console.log(huge + BigInt(num));
+
+// console.log(20n > 10); // works, returns true
+
+// console.log(20n === 20); // false, one is type bigInt other is type number
+// console.log(20n == 20); // true, javascript does type coercion, so bigint and number doesnt matter
+// console.log(20n == '20'); // true
+
+// console.log(huge + 'is really big'); // transforms the bigint into a string
+
+// console.log(10n / 3n);
+// console.log(10 / 3);
+// console.log(11n / 3n); // cuts off the decimal part
+
+//date
+
+//create a date
+// //1.
+// const now = new Date();
+// console.log(now);
+
+// console.log(new Date('2023 18:39:33'));
+// console.log(new Date('dec 24 2015'));
+// console.log(new Date(account1.movementsDates[0]));
+
+// console.log(new Date(2037, 10, 19, 15, 23, 5));
+// console.log(new Date(2037, 10, 31));
+
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000)); // from days to milliseconds
+
+//working with dates
+
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.getMilliseconds());
+
+console.log(future.toISOString());
+console.log(future.getTime()); // milliseconds passed since 1970
+
+console.log(new Date(1596388836977));
+
+console.log(Date.now());
+
+future.setFullYear(2040);
+future.setMonth(2040);
+future.setMinutes(2040);
+//...
+console.log(future);
