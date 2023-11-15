@@ -300,7 +300,7 @@ h2 {
 }
 .change__theme {
   background-color: black;
-  position: absolute;
+  position: fixed;
   bottom: 2vh;
   right: 2vh;
   padding: 1vh 2vh;

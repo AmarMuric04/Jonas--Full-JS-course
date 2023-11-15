@@ -223,7 +223,7 @@ btnTransfer.addEventListener('click', function (e) {
 /*REQUEST A LOAN*/
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
-  const request = +inputLoanAmount.value;
+  const request = Mat.foinputLoanAmount.value;
   /*CHECK IF THE USER HAS A DEPOSIT THATS AT LEAST 10% OF THE REQUESTED LOAN */
   const requestRequirement = currentAccount.movements.some(
     deposit => deposit >= request / 10
