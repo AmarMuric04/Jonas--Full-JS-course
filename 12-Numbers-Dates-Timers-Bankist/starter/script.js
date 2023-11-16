@@ -85,6 +85,32 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const startLogOutTimer = function () {
+  let time = 300;
+  function timer() {
+    //Set tisTimerRunningime to 5 minutes
+
+    let minutes = String(Math.trunc(time / 60)).padStart(2, 0);
+    let seconds = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${minutes} : ${seconds}`;
+
+    //time at 0 -> log user out
+    if (time === 0) {
+      clearInterval(logOutTimer);
+      currentAccount = undefined;
+      containerApp.style.opacity = '0';
+      containerApp.classList.add('hidden');
+      labelWelcome.textContent = 'Log in to get started';
+    }
+
+    //each call print time -1 sec
+    time--;
+  }
+  timer();
+  const logOutTimer = setInterval(timer, 1000);
+  return logOutTimer;
+};
+
 containerApp.classList.add('hidden');
 
 const formatCurrency = function (value, locale, currency, useGrouping = false) {
@@ -230,12 +256,16 @@ createUsernames(accounts);
 // console.log(accounts);
 
 //event handler
-let currentAccount;
+let currentAccount, logOutTimer;
 
 /*LOGIN*/
 btnLogin.addEventListener('click', function (event) {
   //prevents page from reloading
   event.preventDefault();
+
+  if (logOutTimer) clearInterval(logOutTimer);
+  logOutTimer = startLogOutTimer();
+
   // console.log('login');
 
   /*SETTING THE CURRENT ACCOUNT TO WHATEVER USERNAME THE USER PROVIDES INSIDE
@@ -257,6 +287,12 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = '10';
     containerApp.style.transition = '1s';
 
+    /*RESET TIMER ON EVERY CLICK */
+    document.body.addEventListener('click', function (event) {
+      if (logOutTimer) clearInterval(logOutTimer);
+      logOutTimer = startLogOutTimer();
+    });
+
     //GETTING DATE AND DISPLAYING IT  const now = new Date();
     const options = {
       hour: 'numeric',
@@ -270,6 +306,9 @@ btnLogin.addEventListener('click', function (event) {
       currentAccount.locale,
       options
     ).format();
+
+    if (logOutTimer) clearInterval(logOutTimer);
+    logOutTimer = startLogOutTimer();
 
     /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
     updateUI();
@@ -314,6 +353,9 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
+  if (logOutTimer) clearInterval(logOutTimer);
+  logOutTimer = startLogOutTimer();
+
   /*OR Math.trunc() because we are working exclusively with positive numbers */
   const request = Math.floor(inputLoanAmount.value);
 
@@ -339,6 +381,9 @@ btnLoan.addEventListener('click', function (e) {
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
+  if (logOutTimer) clearInterval(logOutTimer);
+  logOutTimer = startLogOutTimer();
+
   if (
     inputCloseUsername.value === currentAccount.username &&
     +inputClosePin.value === currentAccount.pin
@@ -363,6 +408,9 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
+
+  if (logOutTimer) clearInterval(logOutTimer);
+  logOutTimer = startLogOutTimer();
 
   displayMovements(currentAccount, !sorted);
   sorted = !sorted;
@@ -408,6 +456,10 @@ function changeTheme(state = false) {
 }
 btnChangeTheme.addEventListener('click', function () {
   changeTheme(stateOfTheme);
+
+  if (logOutTimer) clearInterval(logOutTimer);
+  logOutTimer = startLogOutTimer();
+
   stateOfTheme = !stateOfTheme;
 });
 // const now = new Date();
@@ -641,19 +693,44 @@ btnChangeTheme.addEventListener('click', function () {
 
 //internalizating numbers
 
-const num = 3884764.23;
+// const num = 3884764.23;
 
-const options = {
-  style: 'currency',
-  currency: account2.currency,
-  // useGrouping: false,
-};
+// const options = {
+//   style: 'currency',
+//   currency: account2.currency,
+//   // useGrouping: false,
+// };
 
-console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
-console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num));
-console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num));
-console.log(
-  'Browser:',
-  navigator.language,
-  new Intl.NumberFormat(navigator.language, options).format(num)
+// console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
+// console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num));
+// console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num));
+// console.log(
+//   'Browser:',
+//   navigator.language,
+//   new Intl.NumberFormat(navigator.language, options).format(num)
+// );
+
+//timers and intervals
+//timer runs once, intervals run forever until we stop them
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2 /*...*/) => {
+    console.log(`Pizza with ${ing1} and ${ing2} is ready 🍕`);
+  },
+  1000,
+  ...ingredients
+  //...
 );
+
+ingredients.includes('spinach') ? clearTimeout(pizzaTimer) : -1;
+
+console.log('Waiting...');
+
+// setInterval(() => {
+//   const now = new Date();
+//   // const hours = String(now.getHours()).padStart(2, 0);
+//   // const minutes = String(now.getMinutes()).padStart(2, 0);
+//   // const seconds = String(now.getSeconds()).padStart(2, 0);
+
+//   // console.log(`${hours} : ${minutes} : ${seconds}`);
+// }, 1000);
