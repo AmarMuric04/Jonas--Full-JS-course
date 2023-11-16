@@ -679,7 +679,7 @@ btnChangeTheme.addEventListener('click', function () {
 
 // future.setFullYear(2040);
 // future.setMonth(2040);
-// future.setMinutes(2040);
+// future.setMinutes(2040);z
 // //...
 // console.log(future);
 
@@ -688,6 +688,11 @@ btnChangeTheme.addEventListener('click', function () {
 // console.log(Number(+future));
 
 // console.log(daysPassed, 'days passed');
+
+const now = new Date();
+
+const formattedNow = new Intl.DateTimeFormat('en-US').format(now);
+console.log(formattedNow);
 
 //internalization API
 
@@ -712,19 +717,19 @@ btnChangeTheme.addEventListener('click', function () {
 
 //timers and intervals
 //timer runs once, intervals run forever until we stop them
-const ingredients = ['olives', 'spinach'];
-const pizzaTimer = setTimeout(
-  (ing1, ing2 /*...*/) => {
-    console.log(`Pizza with ${ing1} and ${ing2} is ready 🍕`);
-  },
-  1000,
-  ...ingredients
-  //...
-);
+// const ingredients = ['olives', 'spinach'];
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2 /*...*/) => {
+//     console.log(`Pizza with ${ing1} and ${ing2} is ready 🍕`);
+//   },
+//   1000,
+//   ...ingredients
+//   //...
+// );
 
-ingredients.includes('spinach') ? clearTimeout(pizzaTimer) : -1;
+// ingredients.includes('spinach') ? clearTimeout(pizzaTimer) : -1;
 
-console.log('Waiting...');
+// console.log('Waiting...');
 
 // setInterval(() => {
 //   const now = new Date();
