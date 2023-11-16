@@ -87,7 +87,15 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 containerApp.classList.add('hidden');
 
-const formatMovementDate = function (date) {
+const formatCurrency = function (value, locale, currency, useGrouping = false) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+    useGrouping: useGrouping,
+  }).format(value);
+};
+
+const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
 
@@ -97,10 +105,12 @@ const formatMovementDate = function (date) {
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(1, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+
+  // const day = String(date.getDate()).padStart(2, '0');
+  // const month = String(date.getMonth() + 1).padStart(1, '0');
+  // const year = date.getFullYear();
+
+  return new Intl.DateTimeFormat(locale).format(date);
 };
 
 const displayMovements = function (acc, sort = false) {
@@ -113,12 +123,20 @@ const displayMovements = function (acc, sort = false) {
   movs.forEach(function (mov, i) {
     let move = mov > 0 ? 'deposit' : 'withdrawal';
     const date = new Date(acc.movementsDates[i]);
-    const displayDate = formatMovementDate(date);
+    const displayDate = formatMovementDate(date, acc.locale);
+
+    const formattedMovement = formatCurrency(
+      mov,
+      acc.locale,
+      acc.currency,
+      false
+    );
+
     const html = `<div class="movements__row">
           <div class="movements__type movements__type--${move}">${
       i + 1
     } ${move}</div> <div class="movements__date">${displayDate}</div>
-          <iv class="movements__value">${mov}€</div>
+          <iv class="movements__value">${formattedMovement}</div>
         </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
     // containerMovements.innerHTML += html;
@@ -126,15 +144,21 @@ const displayMovements = function (acc, sort = false) {
 };
 
 const calcPrintBalance = function (acc) {
-  acc.balance = acc.movements.reduce((acc, mov) => acc + mov);
-  labelBalance.innerHTML = `${acc.balance}€`;
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  const formattedMovement = formatCurrency(
+    acc.balance,
+    acc.locale,
+    acc.currency,
+    true
+  );
+  labelBalance.innerHTML = `${formattedMovement}`;
 };
 
-const calcSummary = function (movement) {
+const calcSummary = function (acc) {
   /*CALCULATING THE INTEREST*/
-  const interest = movement.movements
+  const interest = acc.movements
     .filter(e => e > 0)
-    .map((e, i, arr) => (e * movement.interestRate) / 100)
+    .map((e, i, arr) => (e * acc.interestRate) / 100)
     .filter(e => e >= 1)
     .reduce(
       (acc, e, i, arr) =>
@@ -142,19 +166,36 @@ const calcSummary = function (movement) {
         acc + e,
       0
     );
-  labelSumInterest.textContent = `${interest.toFixed(1)}€`;
+  labelSumInterest.textContent = formatCurrency(
+    interest,
+    acc.locale,
+    acc.currency,
+    false
+  );
 
   /*CALCULATING HOW MUCH WENT INTO THE ACCOUNT*/
-  const totalIn = movement.movements
+  const totalIn = acc.movements
     .filter(e => e > 0)
     .reduce((acc, e) => acc + e, 0);
-  labelSumIn.textContent = `${(totalIn + interest).toFixed(2)}€`;
+
+  labelSumIn.textContent = formatCurrency(
+    totalIn,
+    acc.locale,
+    acc.currency,
+    false
+  );
 
   /*CALCULATING HOW MUCH WENT OUT THE ACCOUNT*/
-  const totalOut = movement.movements
+  const totalOut = acc.movements
     .filter(e => e < 0)
     .reduce((acc, e) => acc + e, 0);
-  labelSumOut.textContent = `${Math.abs(totalOut).toFixed(2)}€`;
+
+  labelSumOut.textContent = `${formatCurrency(
+    Math.abs(totalOut),
+    acc.locale,
+    acc.currency,
+    false
+  )}`;
 };
 
 // console.log(account1.interestRate);
@@ -217,14 +258,19 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.transition = '1s';
 
     //GETTING DATE AND DISPLAYING IT  const now = new Date();
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, 0);
-    const month = String(now.getMonth() + 1).padStart(2, 0);
-    const year = now.getFullYear();
-    const hours = String(now.getHours()).padStart(2, 0);
-    const minutes = String(now.getMinutes()).padStart(2, 0);
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      // weekday: 'long',
+    };
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format();
 
-    labelDate.textContent = `${day}/${month}/${year}, ${hours}:${minutes}`;
     /*DISPLAYING BALANCE, SUMMARY AND MOVEMENTS*/
     updateUI();
 
@@ -364,6 +410,15 @@ btnChangeTheme.addEventListener('click', function () {
   changeTheme(stateOfTheme);
   stateOfTheme = !stateOfTheme;
 });
+// const now = new Date();
+
+// console.log(local);
+
+// currentAccount = account1;
+// containerApp.style.opacity = '10';
+// containerApp.classList.remove('hidden');
+
+// updateUI();
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -581,3 +636,24 @@ btnChangeTheme.addEventListener('click', function () {
 // console.log(Number(+future));
 
 // console.log(daysPassed, 'days passed');
+
+//internalization API
+
+//internalizating numbers
+
+const num = 3884764.23;
+
+const options = {
+  style: 'currency',
+  currency: account2.currency,
+  // useGrouping: false,
+};
+
+console.log('US:', new Intl.NumberFormat('en-US', options).format(num));
+console.log('Germany:', new Intl.NumberFormat('de-DE', options).format(num));
+console.log('Syria:', new Intl.NumberFormat('ar-SY', options).format(num));
+console.log(
+  'Browser:',
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(num)
+);
