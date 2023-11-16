@@ -11,7 +11,9 @@
 
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+  movements: [
+    200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300, 500, 300, 250,
+  ],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -24,6 +26,9 @@ const account1 = {
     '2020-05-27T17:01:17.194Z',
     '2020-07-11T23:36:17.929Z',
     '2020-07-12T10:51:36.790Z',
+    '2023-11-15T10:51:36.790Z',
+    '2023-11-09T10:51:36.790Z',
+    '2023-11-16T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -82,6 +87,22 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 containerApp.classList.add('hidden');
 
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(1, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 const displayMovements = function (acc, sort = false) {
   const movs = sort
     ? acc.movements.slice().sort((a, b) => a - b)
@@ -91,13 +112,8 @@ const displayMovements = function (acc, sort = false) {
 
   movs.forEach(function (mov, i) {
     let move = mov > 0 ? 'deposit' : 'withdrawal';
-
     const date = new Date(acc.movementsDates[i]);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(1, '0');
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
-
+    const displayDate = formatMovementDate(date);
     const html = `<div class="movements__row">
           <div class="movements__type movements__type--${move}">${
       i + 1
@@ -202,8 +218,8 @@ btnLogin.addEventListener('click', function (event) {
 
     //GETTING DATE AND DISPLAYING IT  const now = new Date();
     const now = new Date();
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, 0);
+    const month = String(now.getMonth() + 1).padStart(2, 0);
     const year = now.getFullYear();
     const hours = String(now.getHours()).padStart(2, 0);
     const minutes = String(now.getMinutes()).padStart(2, 0);
@@ -559,3 +575,9 @@ btnChangeTheme.addEventListener('click', function () {
 // future.setMinutes(2040);
 // //...
 // console.log(future);
+
+//OPERATIONS WITH DATES
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(Number(+future));
+
+// console.log(daysPassed, 'days passed');
