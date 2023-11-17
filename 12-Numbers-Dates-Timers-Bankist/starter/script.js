@@ -11,9 +11,7 @@
 
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [
-    200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300, 500, 300, 250,
-  ],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300, 500],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -25,8 +23,6 @@ const account1 = {
     '2020-05-08T14:11:59.604Z',
     '2020-05-27T17:01:17.194Z',
     '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
-    '2023-11-15T10:51:36.790Z',
     '2023-11-09T10:51:36.790Z',
     '2023-11-16T10:51:36.790Z',
   ],
@@ -71,7 +67,9 @@ const containerMovements = document.querySelector('.movements');
 
 const btnChangeTheme = document.querySelector('.change__theme');
 
+const btnLogo = document.querySelector('.logo');
 const btnLogin = document.querySelector('.login__btn');
+const btnLogout = document.querySelector('.logout__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
@@ -126,7 +124,6 @@ const formatMovementDate = function (date, locale) {
     Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
 
   const daysPassed = calcDaysPassed(new Date(), date);
-  console.log(daysPassed);
 
   if (daysPassed === 0) return 'Today';
   if (daysPassed === 1) return 'Yesterday';
@@ -159,11 +156,12 @@ const displayMovements = function (acc, sort = false) {
     );
 
     const html = `<div class="movements__row">
-          <div class="movements__type movements__type--${move}">${
+    <div class="movements__type movements__type--${move}">${
       i + 1
-    } ${move}</div> <div class="movements__date">${displayDate}</div>
-          <iv class="movements__value">${formattedMovement}</div>
-        </div>`;
+    } ${move}</div> 
+    <div class="movements__date">${displayDate}</div>
+    <div class="movements__value">${formattedMovement}</div>
+    </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html);
     // containerMovements.innerHTML += html;
   });
@@ -263,9 +261,6 @@ btnLogin.addEventListener('click', function (event) {
   //prevents page from reloading
   event.preventDefault();
 
-  if (logOutTimer) clearInterval(logOutTimer);
-  logOutTimer = startLogOutTimer();
-
   // console.log('login');
 
   /*SETTING THE CURRENT ACCOUNT TO WHATEVER USERNAME THE USER PROVIDES INSIDE
@@ -276,10 +271,38 @@ btnLogin.addEventListener('click', function (event) {
   /*IF LOGIN INPUTS ARE CORRECT AND MATCHING*/
   if (+inputLoginPin.value === currentAccount?.pin) {
     containerApp.classList.remove('hidden');
-    console.log('Logged in');
+
+    // inputLoginPin.setAttribute('disabled', true);
+    // inputLoginUsername.setAttribute('disabled', true);
+
+    /*REMOVE LOGIN FUNCTIONABILITY WHILE YOU ARE LOGGED IN */
+    inputLoginPin.classList.add('hidden');
+    inputLoginUsername.classList.add('hidden');
+    btnLogin.classList.add('hidden');
+
+    /*REPLACE LOGIN WITH LOGOUT BUTTON */
+    btnLogout.classList.remove('hidden');
+
+    btnLogout.addEventListener('click', function (e) {
+      e.preventDefault();
+      /*ADD LOGIN FUNCTIONABILITY WHEN CLICKING */
+      inputLoginPin.classList.remove('hidden');
+      inputLoginUsername.classList.remove('hidden');
+      btnLogin.classList.remove('hidden');
+
+      /*REPLACE LOGOUT WITH LOGOIN BUTTON */
+      btnLogout.classList.add('hidden');
+
+      /*REMOVING THE VISIBLE SCREEN*/
+      containerApp.style.opacity = '0';
+      containerApp.classList.add('hidden');
+
+      labelWelcome.textContent = 'Log in to get started';
+
+      currentAccount = undefined;
+    });
 
     //DISPLAY WELCOME MESSAGE <NAME> + UI
-
     labelWelcome.textContent = `Welcome back! ${
       currentAccount?.owner.split(' ')[0]
     }`;
@@ -307,6 +330,7 @@ btnLogin.addEventListener('click', function (event) {
       options
     ).format();
 
+    /*RESET TIMER WHEN YOU LOG IN */
     if (logOutTimer) clearInterval(logOutTimer);
     logOutTimer = startLogOutTimer();
 
@@ -316,8 +340,26 @@ btnLogin.addEventListener('click', function (event) {
     //CLEAR THE INPUT FIELDS
     inputLoginPin.value = inputLoginUsername.value = '';
     inputLoginPin.blur();
-  } /*IF THEY ARENT MATCHING*/ else console.log('Error');
+  } /*IF THEY ARENT MATCHING*/ else if (
+    !inputLoginPin.value &&
+    !inputLoginUsername.value
+  ) {
+    isInputWrong(inputLoginPin);
+    isInputWrong(inputLoginUsername);
+  } else if (!currentAccount) {
+    isInputWrong(inputLoginUsername);
+    isInputWrong(inputLoginPin);
+  } else if (+inputLoginPin.value !== inputLoginUsername) {
+    isInputWrong(inputLoginPin);
+  }
 });
+
+function isInputWrong(type) {
+  type.style.borderColor = 'red';
+  setTimeout(() => {
+    type.style.borderColor = 'white';
+  }, 1000);
+}
 
 /*TRANSFERING MONEY */
 btnTransfer.addEventListener('click', function (e) {
@@ -427,6 +469,23 @@ const updateUI = function () {
   calcSummary(currentAccount);
 };
 
+btnLogo.addEventListener('click', function () {
+  /*ADD LOGIN FUNCTIONABILITY WHEN CLICKING */
+  inputLoginPin.classList.remove('hidden');
+  inputLoginUsername.classList.remove('hidden');
+  btnLogin.classList.remove('hidden');
+
+  /*REPLACE LOGOUT WITH LOGOIN BUTTON */
+  btnLogout.classList.add('hidden');
+
+  /*REMOVING THE VISIBLE SCREEN*/
+  containerApp.style.opacity = '0';
+  containerApp.classList.add('hidden');
+
+  labelWelcome.textContent = 'Log in to get started';
+
+  currentAccount = undefined;
+});
 /*CHANGING THEMES FROM DARK TO LIGHT */
 let stateOfTheme = true;
 function changeTheme(state = false) {
@@ -441,6 +500,8 @@ function changeTheme(state = false) {
     btnChangeTheme.style.backgroundColor = 'white';
     moon.style.backgroundColor = 'white';
     moon.style.color = 'black';
+    btnLogout.style.backgroundColor = '#222';
+    btnLogout.style.borderColor = 'white';
   } else {
     document.body.style.backgroundColor = 'white';
     document.body.style.color = 'black';
@@ -452,6 +513,8 @@ function changeTheme(state = false) {
     btnChangeTheme.style.backgroundColor = 'black';
     moon.style.backgroundColor = 'black';
     moon.style.color = 'yellow';
+    btnLogout.style.backgroundColor = 'white';
+    btnLogout.style.borderColor = '#222';
   }
 }
 btnChangeTheme.addEventListener('click', function () {
@@ -689,10 +752,14 @@ btnChangeTheme.addEventListener('click', function () {
 
 // console.log(daysPassed, 'days passed');
 
-const now = new Date();
+// const now = new Date();
 
-const formattedNow = new Intl.DateTimeFormat('en-US').format(now);
-console.log(formattedNow);
+// const options = {
+//   hours: 'twodigit',
+// };
+
+// const formattedNow = new Intl.DateTimeFormat('en-US', options).format(now);
+// console.log(formattedNow);
 
 //internalization API
 
