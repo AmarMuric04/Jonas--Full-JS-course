@@ -118,3 +118,34 @@ logo.classList.contains('c');
 
 // don't use (overrides all the other classes)
 logo.className = 'jonas';
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const sectionOne = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = sectionOne.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current scroll X and Y', window.pageXOffset, window.pageYOffset);
+
+  console.log(
+    'height/width of viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  //SCROLLING
+
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  window.scrollTo({
+    left: s1coords.left + window.pageXOffset,
+    top: s1coords.top + window.pageYOffset,
+    behavior: 'smooth',
+  });
+});
