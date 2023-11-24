@@ -64,12 +64,29 @@ btnScrollTo.addEventListener('click', function (e) {
 });
 
 //page navigation
-document.querySelectorAll('nav__link').forEach(function (e) {
-  e.addEventListener('click', function (e) {
-    console.log('LINK');
-  });
-});
+// document.querySelectorAll('.nav__link').forEach(function (e) {
+//   e.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     console.log(id);
 
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+//1. Add event listener to a common parent element
+//2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  //matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
 // console.log(document.documentElement);
 // console.log(document.head);
 // console.log(document.body);
