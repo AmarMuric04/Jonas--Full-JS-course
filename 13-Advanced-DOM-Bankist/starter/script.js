@@ -191,21 +191,21 @@ headerObserver.observe(header);
 
 const allSections = document.querySelectorAll('.section');
 
-const fadingIn = function (entries, observer) {
-  const [entry] = entries;
-  if (!entry.isIntersecting) return;
-  // if (entry.isIntersecting)
-  entry.target.classList.remove('section--hidden');
-  // observer.unobserve(entry.target);
-};
-const sectionObserver = new IntersectionObserver(fadingIn, {
-  root: null,
-  threshold: 0.15,
-});
-allSections.forEach(function (section) {
-  sectionObserver.observe(section);
-  section.classList.add('section--hidden');
-});
+// const fadingIn = function (entries, observer) {
+//   const [entry] = entries;
+//   if (!entry.isIntersecting) return;
+//   // if (entry.isIntersecting)
+//   entry.target.classList.remove('section--hidden');
+//   // observer.unobserve(entry.target);
+// };
+// const sectionObserver = new IntersectionObserver(fadingIn, {
+//   root: null,
+//   threshold: 0.15,
+// });
+// allSections.forEach(function (section) {
+//   sectionObserver.observe(section);
+//   section.classList.add('section--hidden');
+// });
 
 //lazy loading images
 
@@ -231,6 +231,17 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgTargets.forEach(img => imgObserver.observe(img));
+
+//slider
+const slides = document.querySelectorAll('.slide');
+const slider = document.querySelector('.slider');
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+slider.style.transform = 'scale(0.25) translateX(-150%)';
+slider.style.overflow = 'visible';
+
+slides.forEach((e, i) => (e.style.transform = `translateX(${100 * i}%)`));
+//first 0%, second 100%, third 200%, fourth 300%
 
 // console.log(document.documentElement);
 // console.log(document.head);
