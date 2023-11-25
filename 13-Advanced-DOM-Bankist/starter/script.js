@@ -4,6 +4,11 @@
 // Modal window
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const sectionOne = document.querySelector('#section--1');
+const navLinks = document.querySelector('.nav__links');
+const tabsContent = document.querySelectorAll('.operations__content');
+const tabs = document.querySelectorAll('.operations__tab');
+const nav = document.querySelector('.nav');
+const tabsContainer = document.querySelector('.operations__tab-container');
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -89,10 +94,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 //tabbed component
-const tabsContent = document.querySelectorAll('.operations__content');
-const tabs = document.querySelectorAll('.operations__tab');
-
-const tabsContainer = document.querySelector('.operations__tab-container');
 
 tabsContainer.addEventListener('click', function (el) {
   const clicked = el.target.closest('.operations__tab');
@@ -117,13 +118,40 @@ tabsContainer.addEventListener('click', function (el) {
     tabsContent.forEach(el =>
       el.classList.remove('operations__content--active')
     );
-
     document
       .querySelector(`.operations__content--${clicked.dataset.tab}`)
       .classList.toggle('operations__content--active');
   }
 });
 
+//menu fade animation
+const handleHover = function (el) {
+  if (el.target.classList.contains('nav__link')) {
+    const link = el.target;
+    //theres no child elements inside nav__links thats why we didnt use closest
+    const siblings = link.closest('.nav__links').querySelectorAll('.nav__link');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    // const logo = link.closest('.nav').querySelector('img');
+  }
+};
+
+//passing an argument into handler
+navLinks.addEventListener('mouseover', handleHover.bind(0.5));
+
+navLinks.addEventListener('mouseout', handleHover.bind(1));
+
+const initialCoords = sectionOne.getBoundingClientRect();
+console.log(initialCoords);
+
+//sticky navigation
+window.addEventListener('scroll', function () {
+  if (window.scrollY > initialCoords.top) {
+    nav.classList.add('sticky');
+  } else nav.classList.remove('sticky');
+});
 // console.log(document.documentElement);
 // console.log(document.head);
 // console.log(document.body);
@@ -245,7 +273,7 @@ tabsContainer.addEventListener('click', function (el) {
 //   sectionOne.scrollIntoView({ behavior: 'smooth' });
 // });
 
-// const h1 = document.querySelector('h1');
+const h1 = document.querySelector('h1');
 
 // const alertH1 = function () {
 //   alert('addEventListener: Great! You are reading the heading :D');
@@ -304,8 +332,8 @@ tabsContainer.addEventListener('click', function (el) {
 // console.log(h1.childNodes);
 // console.log(h1.children); //only direct children
 
-// h1.firstElementChild.style.color = 'white';
-// h1.lastElementChild.style.color = 'white';
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'white';
 
 // console.log(h1.firstElementChild);
 // console.log(h1.lastElementChild);
