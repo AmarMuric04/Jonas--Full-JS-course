@@ -191,21 +191,21 @@ headerObserver.observe(header);
 
 const allSections = document.querySelectorAll('.section');
 
-// const fadingIn = function (entries, observer) {
-//   const [entry] = entries;
-//   if (!entry.isIntersecting) return;
-//   // if (entry.isIntersecting)
-//   entry.target.classList.remove('section--hidden');
-//   // observer.unobserve(entry.target);
-// };
-// const sectionObserver = new IntersectionObserver(fadingIn, {
-//   root: null,
-//   threshold: 0.15,
-// });
-// allSections.forEach(function (section) {
-//   sectionObserver.observe(section);
-//   section.classList.add('section--hidden');
-// });
+const fadingIn = function (entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  // if (entry.isIntersecting)
+  entry.target.classList.remove('section--hidden');
+  // observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(fadingIn, {
+  root: null,
+  threshold: 0.15,
+});
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
 
 //lazy loading images
 
@@ -237,10 +237,31 @@ const slides = document.querySelectorAll('.slide');
 const slider = document.querySelector('.slider');
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
-slider.style.transform = 'scale(0.25) translateX(-150%)';
-slider.style.overflow = 'visible';
+let currSlide = 0;
+const maxSlides = slides.length - 1;
 
-slides.forEach((e, i) => (e.style.transform = `translateX(${100 * i}%)`));
+const goToSlide = function (slide) {
+  slides.forEach((e, i) => (e.style.transform = `translateX(${100 * i}%)`));
+
+  slides.forEach(
+    (e, i) => (e.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+goToSlide(0);
+
+const nextSlide = function () {
+  if (currSlide === maxSlides) currSlide = 0;
+  else currSlide++;
+  goToSlide(currSlide);
+};
+const previousSlide = function () {
+  if (currSlide === 0) currSlide = maxSlides;
+  else currSlide--;
+  goToSlide(currSlide);
+};
+
+btnRight.addEventListener('click', nextSlide);
+btnLeft.addEventListener('click', previousSlide);
 //first 0%, second 100%, third 200%, fourth 300%
 
 // console.log(document.documentElement);
