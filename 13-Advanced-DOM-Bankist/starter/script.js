@@ -87,6 +87,32 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+//tabbed component
+const tabsContent = document.querySelectorAll('.operations__content');
+const tabs = document.querySelectorAll('.operations__tab');
+
+const tabsContainer = document.querySelector('.operations__tab-container');
+
+tabsContainer.addEventListener('click', function (el) {
+  const clicked = el.target.closest('.operations__tab');
+
+  //guard clause
+  if (!clicked) return;
+
+  // if (clicked) {
+  tabs.forEach(e => e.classList.remove('operations__tab--active')); //removes active tab from all the other elements
+  clicked.classList.add('operations__tab--active'); //adds active tab to clicked element
+  // }
+
+  //active content area
+  tabsContent.forEach(el => el.classList.remove('operations__content--active')); //removes active from contents
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active'); //adds active to current clicked
+});
+
 // console.log(document.documentElement);
 // console.log(document.head);
 // console.log(document.body);
@@ -257,3 +283,46 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 //   },
 //   true
 // );
+
+// const h1 = document.querySelector('h1');
+// const h4 = document.querySelector('h4');
+
+// //goingdonwards: child
+
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes);
+// console.log(h1.children); //only direct children
+
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'white';
+
+// console.log(h1.firstElementChild);
+// console.log(h1.lastElementChild);
+// console.log(h1.firstChild);
+// console.log(document.querySelector('.nav').firstChild);
+
+// //going upwards
+// console.log(h1.parentElement);
+// console.log(h1.parentNode);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// //going sideways / siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+
+// console.log(h1.nextSibling);
+// console.log(h1.previousSibling);
+
+// console.log(h1.parentElement.children);
+
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
+
+// h1.closest('h1').style.transform = 'rotate(-05deg)';
+
+// h1.lastElementChild.style.color = 'green';
+
+//tabbed component
