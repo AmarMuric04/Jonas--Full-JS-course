@@ -100,17 +100,28 @@ tabsContainer.addEventListener('click', function (el) {
   //guard clause
   if (!clicked) return;
 
-  // if (clicked) {
-  tabs.forEach(e => e.classList.remove('operations__tab--active')); //removes active tab from all the other elements
-  clicked.classList.add('operations__tab--active'); //adds active tab to clicked element
-  // }
+  if (clicked.classList.contains('operations__tab--active')) {
+    /*If button has active class, we remove the active class from every button
+    and we remove all the tab contents from the page*/
+    tabs.forEach(e => e.classList.remove('operations__tab--active'));
 
-  //active content area
-  tabsContent.forEach(el => el.classList.remove('operations__content--active')); //removes active from contents
+    tabsContent.forEach(el =>
+      el.classList.remove('operations__content--active')
+    );
+  } else {
+    /*if the button does not have an active class, we toggle the class, adding it with the first
+    click.*/
+    tabs.forEach(e => e.classList.remove('operations__tab--active'));
+    clicked.classList.toggle('operations__tab--active');
 
-  document
-    .querySelector(`.operations__content--${clicked.dataset.tab}`)
-    .classList.add('operations__content--active'); //adds active to current clicked
+    tabsContent.forEach(el =>
+      el.classList.remove('operations__content--active')
+    );
+
+    document
+      .querySelector(`.operations__content--${clicked.dataset.tab}`)
+      .classList.toggle('operations__content--active');
+  }
 });
 
 // console.log(document.documentElement);
