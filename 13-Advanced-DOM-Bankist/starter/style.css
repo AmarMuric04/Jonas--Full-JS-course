@@ -418,6 +418,9 @@ h4 {
   width: 5.5rem;
   font-size: 3.25rem;
   cursor: pointer;
+  display: flex;
+  align-items: start;
+  justify-content: center;
 }
 
 .slider__btn--left {
@@ -440,7 +443,7 @@ h4 {
 
 .dots__dot {
   border: none;
-  background-color: #b9b9b9;
+  background-color: #303030;
   opacity: 0.7;
   height: 1rem;
   width: 1rem;
