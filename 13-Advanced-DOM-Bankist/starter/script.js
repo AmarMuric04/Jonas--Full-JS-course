@@ -495,8 +495,8 @@ const h1 = document.querySelector('h1');
 // console.log(h1.childNodes);
 // console.log(h1.children); //only direct children
 
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'white';
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'white';
 
 // console.log(h1.firstElementChild);
 // console.log(h1.lastElementChild);

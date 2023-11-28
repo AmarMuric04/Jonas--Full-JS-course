@@ -212,6 +212,7 @@ h4 {
 
 .highlight {
   position: relative;
+  color: white;
 }
 
 .highlight::after {
