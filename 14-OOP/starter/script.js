@@ -2,18 +2,23 @@
 
 // const currYear = new Date().getFullYear();
 
-// const Person = function (firstName, birthYear) {
-//   //instane properties
-//   this.firstName = firstName;
-//   this.birthYear = birthYear;
+const Person = function (firstName, birthYear) {
+  //instane properties
+  this.firstName = firstName;
+  this.birthYear = birthYear;
 
-//   //never use this!
-//   //   this.calcAge = function () {
-//   //     console.log(currYear - birthYear);
-//   //   };
-// };
+  //never use this!
+  //   this.calcAge = function () {
+  //     console.log(currYear - birthYear);
+  //   };
+};
+Person.hey = function () {
+  console.log('hey there 🧡');
+};
+Person.hey();
 
-// const amar = new Person('Amar', 2004);
+const amar = new Person('Amar', 2004);
+// amar.hey();
 // // amar.calcAge()
 // // 1. new empty object is created
 // // 2. function is called(this keyword is this new empty object)
@@ -113,10 +118,17 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+  //static method
+  static hey() {
+    console.log('hey there 💨');
+    console.log(this);
+  }
 }
-
+PersonCl.hey();
 const jessica = new PersonCl('Amar Muric', 2005);
 console.log(jessica.age, 123);
+
+// jessica.hey();
 
 console.log(jessica);
 console.log(jessica.fullName);
@@ -154,3 +166,29 @@ const account = {
 console.log(account.latest);
 console.log((account.latest = 123));
 console.log(account.movements);
+
+Array.from(document.querySelectorAll('h1'));
+
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 1986;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('sarah', 2004);
+sarah.calcAge();
+console.log(sarah);
