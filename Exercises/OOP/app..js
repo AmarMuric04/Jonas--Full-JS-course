@@ -82,16 +82,16 @@ class Car {
   get speedUS() {
     return console.log("Current speed in mi/h is: " + this.speed / 1.6);
   }
-  set speedUS(currentSpeed) {
-    return console.log("current speed in km/p: " + currentSpeed * 1.6);
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
   }
 }
 
-const Ford = new Car("Ford", 240);
+const Ford = new Car("Ford", 120);
 
 Ford.accelerate();
 Ford.brake();
 
 Ford.speedUS;
-
-Ford.speedUS = 153.125;
+Ford.speedUS = 100;
+console.log(Ford);
