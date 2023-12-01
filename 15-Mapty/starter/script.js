@@ -17,17 +17,36 @@ navigator.geolocation.getCurrentPosition(
     const { longitude } = position.coords;
     console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
 
-    const map = L.map('map').setView([51.505, -0.09], 13);
+    const coords = [latitude, longitude];
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const map = L.map('map').setView(coords, 13);
+
+    console.log(map);
+
+    L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    L.marker([51.5, -0.09])
-      .addTo(map)
-      .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-      .openPopup();
+    map.on('click', function (mapEvent) {
+      L.marker(mapEvent.latlng)
+        .addTo(map)
+        .bindPopup(
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup',
+          })
+        )
+        .setPopupContent(
+          `Workour ${months[new Date().getMonth()]} ${String(
+            new Date().getDate()
+          ).padStart(2, 0)}`
+        )
+        .openPopup();
+    });
   },
   function () {
     alert('Could not get your position.');
