@@ -169,7 +169,7 @@ class CarCl {
   }
 }
 
-class EVCL extends CarCl {
+class EVCl extends CarCl {
   #charge;
   constructor(make, speed, charge) {
     super(make, speed);
@@ -183,6 +183,7 @@ class EVCL extends CarCl {
     }
     return this;
   }
+
   accelerate() {
     if (this.#charge === 0) return this;
     this.speed += 100;
@@ -195,6 +196,7 @@ class EVCL extends CarCl {
     );
     return this;
   }
+
   brake() {
     this.speed -= 120;
     console.log(
@@ -202,6 +204,7 @@ class EVCL extends CarCl {
     );
     return this;
   }
+
   chargeBattery() {
     if (this.#charge === 100) return this;
     this.#charge += 50;
@@ -211,21 +214,32 @@ class EVCL extends CarCl {
     );
     return this;
   }
+
   drift() {
     console.log(
       `${this.make} just did a sick drift going at the speed of ${this.speed} km/h!`
     );
     return this;
   }
+  crashed() {
+    console.log(`${this.make} lost control and CRASHED!!!`);
+    this.speed = 0;
+    this.#charge = 0;
+    console.log(this);
+    return this;
+  }
+
+  repaired() {
+    console.log(
+      `A crazy mechanic came across the ${this.make} and decided to repair it!`
+    );
+    return this;
+  }
 }
 
-const rivion = new EVCL("Rivion", 120, 23);
+const i8 = new EVCl("i8", 120, 23);
 
-rivion.accelerate();
-rivion.accelerate();
-rivion.accelerate();
-rivion
-  .accelerate()
+i8.accelerate()
   .chargeBattery()
   .chargeBattery()
   .chargeBattery()
@@ -238,4 +252,14 @@ rivion
   .accelerate()
   .accelerate()
   .drift()
-  .brake();
+  .brake()
+  .crashed()
+  .repaired()
+  .chargeBattery()
+  .chargeBattery()
+  .accelerate()
+  .accelerate()
+  .drift()
+  .drift()
+  .drift()
+  .accelerate();
