@@ -108,45 +108,134 @@ DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 GOOD LUCK 😀
 */
 
-const Car = function (make, speed) {
-  this.make = make;
-  this.speed = speed;
-};
+// const Car = function (make, speed) {
+//   this.make = make;
+//   this.speed = speed;
+// };
 
-Car.prototype.accelerate = function () {
-  this.speed += 20;
-  this.charge--;
-  console.log(
-    `${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge}%`
-  );
-};
-Car.prototype.brake = function () {
-  this.speed -= 5;
-  console.log(
-    `${this.make} pressed on the brakes, current speed is ${this.speed} km/h, with a charge of ${this.charge}%`
-  );
-};
-const EV = function (make, speed, charge) {
-  Car.call(this, make, speed);
-  this.charge = charge;
-};
+// Car.prototype.accelerate = function () {
+//   this.speed += 20;
+//   this.charge--;
+//   console.log(
+//     `${this.make} is going at ${this.speed} km/h, with a charge of ${this.charge}%`
+//   );
+// };
+// Car.prototype.brake = function () {
+//   this.speed -= 5;
+//   console.log(
+//     `${this.make} pressed on the brakes, current speed is ${this.speed} km/h, with a charge of ${this.charge}%`
+//   );
+// };
+// const EV = function (make, speed, charge) {
+//   Car.call(this, make, speed);
+//   this.charge = charge;
+// };
 
-EV.prototype = Object.create(Car.prototype);
-EV.prototype.chargeBattery = function (chargeTo) {
-  chargeTo > this.charge
-    ? (this.charge = chargeTo)
-    : alert("Can't charge battery backwards");
-  console.log(`Battery charged to ${this.charge}%`);
-};
-const Tesla = new EV("Tesla", 120, 23);
+// EV.prototype = Object.create(Car.prototype);
+// EV.prototype.chargeBattery = function (chargeTo) {
+//   chargeTo > this.charge
+//     ? (this.charge = chargeTo)
+//     : alert("Can't charge battery backwards");
+//   console.log(`Battery charged to ${this.charge}%`);
+// };
+// const Tesla = new EV("Tesla", 120, 23);
 
-Tesla.accelerate();
-Tesla.accelerate();
-Tesla.accelerate();
-Tesla.accelerate();
-Tesla.brake();
-Tesla.chargeBattery(100);
-Tesla.accelerate();
-Tesla.accelerate();
-Tesla.accelerate();
-// Tesla.chargeBattery(50);
+// Tesla.accelerate();
+// Tesla.accelerate();
+// Tesla.accelerate();
+// Tesla.accelerate();
+// Tesla.brake();
+// Tesla.chargeBattery(100);
+// Tesla.accelerate();
+// Tesla.accelerate();
+// Tesla.accelerate();
+// // Tesla.chargeBattery(50);
+
+// Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+}
+
+class EVCL extends CarCl {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = 23;
+  }
+  checkBattery() {
+    if (this.#charge > 100) {
+      this.#charge = 100;
+    } else if (this.#charge < 0) {
+      this.#charge = 0;
+    }
+    return this;
+  }
+  accelerate() {
+    if (this.#charge === 0) return this;
+    this.speed += 100;
+    this.#charge -= 15;
+    this.checkBattery();
+    console.log(
+      `${this.make} hit the gas! Current speed is ${
+        this.speed
+      } km/h, battery is at ${this.#charge}%`
+    );
+    return this;
+  }
+  brake() {
+    this.speed -= 120;
+    console.log(
+      `${this.make} just hit the brakes! Current speed dropped to ${this.speed} km/h`
+    );
+    return this;
+  }
+  chargeBattery() {
+    if (this.#charge === 100) return this;
+    this.#charge += 50;
+    this.checkBattery();
+    console.log(
+      `${this.make}'s battery was successfully charged! ${this.#charge}%`
+    );
+    return this;
+  }
+  drift() {
+    console.log(
+      `${this.make} just did a sick drift going at the speed of ${this.speed} km/h!`
+    );
+    return this;
+  }
+}
+
+const rivion = new EVCL("Rivion", 120, 23);
+
+rivion.accelerate();
+rivion.accelerate();
+rivion.accelerate();
+rivion
+  .accelerate()
+  .chargeBattery()
+  .chargeBattery()
+  .chargeBattery()
+  .drift()
+  .brake()
+  .chargeBattery()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .accelerate()
+  .accelerate()
+  .drift()
+  .brake();
