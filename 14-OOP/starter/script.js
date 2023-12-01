@@ -191,39 +191,151 @@
 // const sarah = Object.create(PersonProto);
 // sarah.init('sarah', 2004);
 // sarah.calcAge();
-// console.log(sarah);
+// // console.log(sarah);
 
-const Person = function (firstName, birthYear) {
-  this.firstName = firstName;
-  this.birthYear = birthYear;
-};
-Person.prototype.calcAge = function () {
-  console.log(2037 - this.birthYear);
+// const Person = function (firstName, birthYear) {
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
+// };
+// Person.prototype.calcAge = function () {
+//   console.log(2037 - this.birthYear);
+// };
+
+// const Student = function (firstName, birthYear, course) {
+//   Person.call(this, firstName, birthYear);
+//   this.course = course;
+// };
+
+// //linking prototypes
+// Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype.introduce = function () {
+//   console.log(this.firstName, this.birthYear, this.course);
+// };
+
+// const amar = new Student('Amar', 2004, 'Software Engineer');
+
+// amar.introduce();
+// amar.calcAge();
+
+// console.log(amar instanceof Student);
+// console.log(amar instanceof Person);
+// console.log(amar instanceof Object);
+
+// Student.prototype.constructor = Student;
+
+// console.dir(Student.prototype.constructor);
+// console.log(amar.__proto__);
+// console.log(amar.__proto__.__proto__.__proto__);
+
+//inhertance between classes in es6 classes
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  //methos will be added to .prototype propert y
+  calcAge() {
+    console.log(2023 - this.birthYear);
+  }
+  greet() {
+    console.log(`hey ` + this.fullName);
+  }
+
+  get age() {
+    return 2023 - this.birthYear;
+  }
+
+  // set a property that already exists
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) {
+      this._fullName = name;
+    } else alert(`${name} is not a full name`);
+  }
+  get fullName() {
+    return this._fullName;
+  }
+  //static method
+  static hey() {
+    console.log('hey there 💨');
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    //Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  introduce() {
+    console.log(`Hey ${this.fullName} 🙋‍♂️`);
+  }
+  calcAge() {
+    console.log(`i am ${2036 - this.birthYear} years old.`);
+  }
+}
+
+//if we dont want to add any more properties, we do not need to add the constructor to the StudentCl
+const Amar = new StudentCl('Amar Muric', 2004, 'SI');
+const Murga = new PersonCl('Murga man', 2005);
+
+Murga.calcAge();
+console.log(Amar);
+Amar.introduce();
+Amar.calcAge();
+
+// const btn = document.querySelector('.btn');
+// btn.addEventListener('click', function () {
+//   const name = prompt('Enter your name');
+//   const age = +prompt('Enter your birth year');
+//   const course = prompt('Course?');
+
+//   const user = new StudentCl(name, age, course);
+//   console.log(user);
+// });
+
+// setInterval(() => {
+//   console.dir(StudentCl);
+// }, 1000);
+
+//class inheritance with object.create
+const PersonProto = {
+  calcAge() {
+    return 2037 - this.birthYear;
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
 };
 
-const Student = function (firstName, birthYear, course) {
-  Person.call(this, firstName, birthYear);
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
   this.course = course;
 };
-
-//linking prototypes
-Student.prototype = Object.create(Person.prototype);
-
-Student.prototype.introduce = function () {
-  console.log(this.firstName, this.birthYear, this.course);
+StudentProto.introduce = function () {
+  console.log(
+    `My name is ${
+      this.firstName
+    }, i am ${this.calcAge()} years old and i'm taking a course in ${
+      this.course
+    }`
+  );
 };
-
-const amar = new Student('Amar', 2004, 'Software Engineer');
-
+const amar = Object.create(StudentProto);
+amar.init('Amar Muric', 2004, 'S.I');
+console.log(amar);
 amar.introduce();
-amar.calcAge();
 
-console.log(amar instanceof Student);
-console.log(amar instanceof Person);
-console.log(amar instanceof Object);
+// class ...
 
-Student.prototype.constructor = Student;
+// childclass = object.create(...)
 
-console.dir(Student.prototype.constructor);
-console.log(amar.__proto__);
-console.log(amar.__proto__.__proto__.__proto__);
+// child...(...)
