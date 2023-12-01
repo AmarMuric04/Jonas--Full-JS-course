@@ -339,3 +339,72 @@ amar.introduce();
 // childclass = object.create(...)
 
 // child...(...)
+
+class Account {
+  //public fields
+  locale = navigator.language;
+
+  //private fields
+  #movements = [];
+  #PIN;
+
+  constructor(owner, currency, PIN) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#PIN = PIN;
+    //protected property
+    // this._movements = [];
+    // this.locale = navigator.language;
+  }
+  //public methods
+
+  //Public interface
+
+  get getMovements() {
+    return this.#movements;
+  }
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
+  withdraw(val) {
+    this.deposit(-val);
+    return this;
+  }
+
+  requestLoan(val) {
+    // if (this.#approveLoan(val)) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved ${val}`);
+      return this;
+    }
+  }
+
+  //private methods
+  // #approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+}
+const acc1 = new Account('Amar', 'EUR', 1234);
+
+acc1.requestLoan(2000);
+
+acc1.deposit(2000);
+acc1.deposit(2000);
+acc1.withdraw(2000);
+console.log(acc1);
+console.log(acc1._PIN);
+
+console.log(acc1.movements);
+
+//public field
+//private field
+//public method
+//private method
+
+//Chaining methods
+acc1.deposit(300).deposit(250).withdraw(500).requestLoan(1000).withdraw(500);
+
+console.log(acc1.getMovements);
