@@ -60,23 +60,44 @@ class App {
     inputElevation.closest('div').classList.toggle('form__row--hidden');
     inputCadence.closest('div').classList.toggle('form__row--hidden');
   }
-
   _newWorkout(e) {
+    const validInputs = (...inputs) =>
+      inputs.every(inp => Number.isFinite(inp));
+    const isPositive = (...inputs) => inputs.every(inp => inp > 0);
+    const isEmpty = (...inputs) => inputs.every(inp => inp === '');
+
     e.preventDefault();
 
-    if (
-      inputCadence.value === '' ||
-      inputDistance.value === '' ||
-      inputDuration.value === ''
-    )
-      return;
-    //clear input fields
-    inputCadence.value =
-      inputDistance.value =
-      inputDuration.value =
-      inputElevation.value =
-        '';
-    //Display marker
+    //get data from form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+    //if activity is running, create running object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      //check if data is valid
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !isPositive(distance, duration, cadence) ||
+        !isEmpty(distance, duration, cadence)
+      ) {
+        return;
+      }
+    }
+    //if activity is cycling, create cycling object
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !isPositive(distance, duration) ||
+        !isEmpty(distance, duration, elevation)
+      ) {
+        return;
+      }
+    }
+    //add new workout array
+
+    //render new workout on map as marker
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
       .addTo(this.#map)
@@ -95,8 +116,18 @@ class App {
         ).padStart(2, 0)}`
       )
       .openPopup();
-    form.removeEventListener('submit', this._newWorkout.bind(this));
+    //render workout on list
+
+    //hude form + clear input fields
     form.addEventListener('submit', form.classList.add('hidden'));
+    inputCadence.value =
+      inputDistance.value =
+      inputDuration.value =
+      inputElevation.value =
+        '';
+    //Display marker
+
+    form.removeEventListener('submit', this._newWorkout.bind(this));
   }
 }
 
