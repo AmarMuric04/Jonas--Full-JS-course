@@ -27,7 +27,7 @@ class Workout {
   }
   click() {
     this.clicks++;
-    console.log(this.clicks);
+    // console.log(this.clicks);
     // console.log(this);
   }
 }
@@ -97,7 +97,7 @@ class App {
     {
       const { latitude } = position.coords;
       const { longitude } = position.coords;
-      console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
+      // console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
 
       const coords = [latitude, longitude];
 
@@ -317,7 +317,6 @@ class App {
         );
       }
     });
-    console.log(this.#workouts);
     this.#workouts.forEach(work => {
       this._renderWorkout(work);
     });
