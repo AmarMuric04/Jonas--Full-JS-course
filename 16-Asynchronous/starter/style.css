@@ -13,11 +13,15 @@ body {
   font-family: system-ui;
   color: #555;
   background-color: #f7f7f7;
+  width: 100vw;
   min-height: 100vh;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+
+  flex-wrap: wrap;
 }
 
 .container {
@@ -33,6 +37,10 @@ body {
   font-size: 2rem;
   opacity: 0;
   transition: opacity 1s;
+
+  width: 100vw;
+  flex-wrap: wrap;
+  row-gap: 2rem;
 }
 
 .country {
@@ -43,6 +51,8 @@ body {
   border-radius: 0.7rem;
   margin: 0 3rem;
   /* overflow: hidden; */
+
+  cursor: pointer;
 }
 
 .neighbour::before {
@@ -123,4 +133,29 @@ body {
   margin: 2rem;
   border: 3rem solid white;
   box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+input {
+  width: 25rem;
+  height: 5rem;
+  margin-top: 20rem;
+  margin-bottom: 5rem;
+  border: 0.1px solid rgb(171, 171, 171);
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+input:focus {
+  background-color: rgb(236, 236, 236);
+}
+.input {
+  padding: 10rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input p {
+  font-size: 2rem;
 }
