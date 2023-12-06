@@ -8,45 +8,93 @@ const input = document.querySelector('input');
 
 // https://countries-api-836d.onrender.com/countries/
 
-input.addEventListener('keydown', function (e) {
-  const country = input.value.trim();
-  if (e.key === 'Enter') {
-    getCountrData(country);
-    input.value = '';
-  }
-});
+// input.addEventListener('keydown', function (e) {
+//   const country = input.value.trim();
+//   if (e.key === 'Enter') {
+//     getCountryAndNeighbor(country);
+//     input.value = '';
+//   }
+// });
 
-const getCountrData = function (country) {
-  const request = new XMLHttpRequest();
-  request.open(
-    'GET',
-    `https://countries-api-836d.onrender.com/countries/name/${country}`
-  );
-  request.send();
+// const renderCountry = function (data, neighbor) {
+//   const html = `
+//         <article class="country ${neighbor}">
+//           <img class="country__img" src="${data.flag}" />
+//           <div class="country__data">
+//             <h3 class="country__name">${data.name}</h3>
+//             <h4 class="country__region">${data.region}</h4>
+//             <p class="country__row"><span>👫</span>${data.population}</p>
+//             <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//             <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
+//           </div>
+//         </article>`;
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+//   countriesContainer.style.opacity = '1';
+// };
 
-  request.addEventListener('load', function () {
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
+// const getCountryAndNeighbor = function (country) {
+//   //AJAX call country 1
+//   const request = new XMLHttpRequest();
+//   request.open(
+//     'GET',
+//     `https://countries-api-836d.onrender.com/countries/name/${country}`
+//   );
+//   request.send();
 
-    const html = ` 
-        <article class="country">
-          <img class="country__img" src="${data.flag}" />
-          <div class="country__data">
-            <h3 class="country__name">${data.name}</h3>
-            <h4 class="country__region">${data.region}</h4>
-            <p class="country__row"><span>👫</span>${data.population}</p>
-            <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-            <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-          </div>
-        </article>`;
+//   request.addEventListener('load', function () {
+//     const [data] = JSON.parse(this.responseText);
+//     // console.log(data);
 
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = '1';
+//     //Render country one
+//     renderCountry(data);
 
-    document.querySelectorAll('.country').forEach(e =>
-      e.addEventListener('click', function (e) {
-        e.target.closest('.country').remove();
-      })
-    );
-  });
-};
+//     //get neighbor country
+//     if (data.borders.length === 0) return;
+//     const neighbor = data?.borders?.[0];
+
+//     //ajax call 2
+//     const request2 = new XMLHttpRequest();
+//     request2.open(
+//       'GET',
+//       `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`
+//     );
+//     request2.send();
+
+//     request2.addEventListener('load', function () {
+//       const data2 = JSON.parse(this.responseText);
+//       // console.log(data2);
+//       renderCountry(data2, 'neighbour');
+//     });
+
+//     document.querySelectorAll('.country').forEach(e =>
+//       e.addEventListener('click', function (e) {
+//         e.target.closest('.country').remove();
+//       })
+//     );
+//   });
+// };
+
+// setTimeout(() => {
+//   console.log(1);
+//   setTimeout(() => {
+//     console.log(2);
+//     setTimeout(() => {
+//       console.log(3);
+//       setTimeout(() => {
+//         console.log(4);
+//         setTimeout(() => {
+//           console.log(5);
+//           setTimeout(() => {
+//             console.log(6);
+//           }, 1000);
+//         }, 1000);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
+const request = fetch(
+  'https://countries-api-836d.onrender.com/countries/name/serbia'
+);
+
+console.log(request);
