@@ -4,6 +4,9 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 const input = document.querySelector('input');
 
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+};
 ///////////////////////////////////////
 
 // https://countries-api-836d.onrender.com/countries/
@@ -25,13 +28,12 @@ const renderCountry = function (data, className) {
       <h4 class="country__region">${data.region}</h4>
       <p class="country__row"><span>👫</span>${(
         +data.population / 1000000
-      ).toFixed(1)} people</p>
+      ).toFixed(1)}M people</p>
       <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
       <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
     </div>
   </article>`;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = '1';
 };
 
 // const getCountryAndNeighbor = function (country) {
@@ -104,16 +106,26 @@ const getCountryData = function (country) {
   fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
+      // console.log(data);
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
+      // console.log(neighbour);
       if (!neighbour) return;
 
       return fetch(
-        `https://countries-api-836d.onrender.com/countries/name/${neighbour}`
-      )
-        .then(response => response.json())
-        .then(data => renderCountry(data, 'neighbour'));
+        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`
+      );
+    })
+    .then(response => response.json())
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => {
+      console.error('ERROR! No internet connection');
+      renderError('Lost connection.');
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
-getCountryData('portugal');
+btn.addEventListener('click', function () {
+  getCountryData('portugal');
+});
