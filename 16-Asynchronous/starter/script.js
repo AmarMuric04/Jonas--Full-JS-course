@@ -97,26 +97,39 @@ const renderCountry = function (data, className) {
 //   }, 1000);
 // }, 1000);
 
+const getJSON = function (url, errMsg = 'Something went wrong') {
+  fetch(url).then(response => {
+    console.log(response);
+    if (!response.ok) {
+      console.error('PROBLEM');
+      //prettier-ignore
+      throw new Error(`${errMsg} ${response.status}`);
+    }
+    return response.json();
+  });
+};
+
 const request = fetch(
   'https://countries-api-836d.onrender.com/countries/name/serbia'
 );
 // console.log(request);
 
 const getCountryData = function (country) {
-  fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-    .then(response => response.json())
+  getJSON(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`,
+    'Country not found'
+  )
     .then(data => {
-      // console.log(data);
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
       // console.log(neighbour);
-      if (!neighbour) return;
+      if (!neighbour) throw new Error(`No neighbors found`);
 
-      return fetch(
-        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`
+      return getJSON(
+        `https://countries-api-836d.onrender.com/countries/alpha/${neighbour}`,
+        'Country not found'
       );
     })
-    .then(response => response.json())
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
       console.error('ERROR! No internet connection');
@@ -127,5 +140,6 @@ const getCountryData = function (country) {
     });
 };
 btn.addEventListener('click', function () {
-  getCountryData('portugal');
+  getCountryData('serbia');
 });
+getCountryData('iceland');
