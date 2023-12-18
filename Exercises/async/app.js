@@ -138,6 +138,10 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 
 GOOD LUCK 😀
 */
-const createImage = function(imgPath){
-  return new Promise(resolve,reject)
-}
+document.querySelector("img");
+
+const createImage = function (imgPath) {
+  return new Promise(function(resolve,reject) {
+    
+  });
+};
