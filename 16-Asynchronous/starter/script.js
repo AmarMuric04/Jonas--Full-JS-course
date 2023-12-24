@@ -35,8 +35,6 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
   });
 };
 
-
-
 const getCountryData = function (country) {
   // Country 1
   getJSON(
@@ -129,42 +127,51 @@ btn.addEventListener('click', function () {
 // Promise.resolve('abc').then(res => console.log(res));
 // Promise.reject(new Error('Problem!')).catch(err => console.error(err));
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    // navigator.geolocation.getCurrentPosition(
-    //   position => resolve(position),
-    //   err => reject(err)
-    // );
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     // navigator.geolocation.getCurrentPosition(
+//     //   position => resolve(position),
+//     //   err => reject(err)
+//     // );
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
 
-getPosition()
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
+// getPosition()
+//   .then(res => console.log(res))
+//   .catch(err => console.error(err));
 
-var requestOptions = {
-  method: 'GET',
-};
-const whereAmI = function (lat, lng) {
-  getPosition()
-    .then(pos => {
-      const { latitude: lat, longitude: lng } = pos.coords;
-      return fetch(
-        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=5732bd3686e246b1803525c7c575d132`,
-        requestOptions
-      );
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      let mainData = data.features[0].properties;
-      console.log(`You are in ${mainData.city}, ${mainData.country}`);
+// var requestOptions = {
+//   method: 'GET',
+// };
+// const whereAmI = function (lat, lng) {
+//   getPosition()
+//     .then(pos => {
+//       const { latitude: lat, longitude: lng } = pos.coords;
+//       return fetch(
+//         `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=5732bd3686e246b1803525c7c575d132`,
+//         requestOptions
+//       );
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//       console.log(data);
+//       let mainData = data.features[0].properties;
+//       console.log(`You are in ${mainData.city}, ${mainData.country}`);
 
-      getCountryData(mainData.country);
-    })
-    .catch(err => {
-      console.error('Lost internet connection');
-      console.log(`Error ${err}`);
-    });
+//       getCountryData(mainData.country);
+//     })
+//     .catch(err => {
+//       console.error('Lost internet connection');
+//       console.log(`Error ${err}`);
+//     });
+// };
+
+const whereAmI = async function (country) {
+  const res = await fetch(
+    `https://countries-api-836d.onrender.com/countries/name/${country}`
+  );
+  console.log(res);
 };
+whereAmI('serbia');
+console.log('First');
