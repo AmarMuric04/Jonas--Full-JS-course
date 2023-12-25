@@ -141,9 +141,9 @@ btn.addEventListener('click', function () {
 //   .then(res => console.log(res))
 //   .catch(err => console.error(err));
 
-// var requestOptions = {
-//   method: 'GET',
-// };
+var requestOptions = {
+  method: 'GET',
+};
 // const whereAmI = function (lat, lng) {
 //   getPosition()
 //     .then(pos => {
@@ -167,11 +167,51 @@ btn.addEventListener('click', function () {
 //     });
 // };
 
-const whereAmI = async function (country) {
-  const res = await fetch(
-    `https://countries-api-836d.onrender.com/countries/name/${country}`
-  );
-  console.log(res);
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 };
-whereAmI('serbia');
+
+const whereAmI = async function (country) {
+  try {
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
+    const resGeo = await fetch(
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&apiKey=5732bd3686e246b1803525c7c575d132`,
+      requestOptions
+    );
+    if (!resGeo.ok) throw new Error(`Problem with fetching location.`);
+    const dataGeo = await resGeo.json();
+    const mainData = dataGeo.features[0].properties;
+    const res = await fetch(
+      `https://countries-api-836d.onrender.com/countries/name/${mainData.country}`
+    );
+
+    if (!res.ok) throw new Error(`Problem with fetching location.`);
+    const data = await res.json();
+    renderCountry(data[0]);
+    return `You are in ${mainData.city}, ${mainData.country}`;
+  } catch (err) {
+    console.error(`${err}`);
+    renderError(`Something went wrong ${err.message}`);
+
+    throw err;
+  }
+};
 console.log('First');
+
+// const city = whereAmI();
+// console.log(city);
+whereAmI()
+  .then(city => console.log(city))
+  .catch(err => console.error(err))
+  .finally(() => console.log('Third'));
+
+// try {
+//   let y = 1;
+//   const x = 2;
+//   x = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
