@@ -190,8 +190,8 @@ let currImg;
 /* 
 PART 1
 Write an async function 'loadNPause' that recreates Coding Challenge #2,
- this time using async/await (only the part where the promise is consumed)
- . Compare the two versions, think about the big differences, and see which
+ this time using async/await (only the part where the promise is consumed).
+  Compare the two versions, think about the big differences, and see which
   one you like more.
 Don't forget to test the error handler, and to set the network speed to 'Fast 3G' 
 in the dev tools Network tab.
@@ -223,9 +223,33 @@ const createImage = function (imgPath) {
   });
 };
 
-const loadNPause = async function () {
-  const img = await createImage("/16-Asynchronous/final/img/img-1.jpg");
-  currImg = img;
-  console.log("first image loaded");
+// const loadNPause = async function () {
+//   const img = await createImage("/16-Asynchronous/final/img/img-1.jpg");
+//   currImg = img;
+//   console.log("first image loaded");
+//   await wait(2);
+//   currImg.style.display = "none";
+//   await wait(2);
+//   const img2 = await createImage("/16-Asynchronous/final/img/img-2.jpg");
+//   currImg = img2;
+//   await wait(2);
+//   currImg.style.display = "none";
+//   await wait(2);
+//   const img3 = await createImage("/16-Asynchronous/final/img/img-3.jpg");
+//   currImg = img3;
+//   await wait(2);
+//   currImg.style.display = "none";
+// };
+// loadNPause();
+
+const loadAll = async function (imgArr) {
+  const imgs = imgArr.map(async (e) => await createImage(e));
+  console.log(imgs);
+  const imgsEl = await Promise.all(imgs);
+  imgsEl.forEach((e) => e.classList.add("parallel"));
 };
-loadNPause();
+loadAll([
+  "/16-Asynchronous/final/img/img-1.jpg",
+  "/16-Asynchronous/final/img/img-2.jpg",
+  "/16-Asynchronous/final/img/img-3.jpg",
+]);
