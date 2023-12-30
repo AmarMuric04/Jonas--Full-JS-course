@@ -2,9 +2,9 @@
 console.log('Exporting module');
 
 //BLOCKING CODE
-console.log('Start fetching users');
-await fetch('https://jsonplaceholder.typicode.com/users');
-console.log('Finished fetching');
+// console.log('Start fetching users');
+// await fetch('https://jsonplaceholder.typicode.com/users');
+// console.log('Finished fetching');
 
 const shippingCost = 10;
 export const cart = [];
