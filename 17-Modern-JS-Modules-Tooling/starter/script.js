@@ -2,6 +2,7 @@
 // import { addToCart, totalPrice as price, qt } from './shoppingCart.js';
 // console.log(`Total quantity: ${qt}, (${price}$)`);
 console.log('Importing module');
+import shoppingCart from './shoppingCart.js';
 // addToCart('potato', 5);
 
 // import * as ShoppingCart from './shoppingCart.js';
@@ -37,3 +38,38 @@ const getLastPost = async function () {
 
 const lastPost2 = await getLastPost();
 console.log(lastPost2);
+
+const ShoppingCart = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(
+      `${quantity} ${product}(e/s) added to cart. (Shipping cost is ${
+        (quantity / 10) * shippingCost
+      }$)`
+    );
+  };
+  const orderStock = function (product, quantity) {
+    console.log(`${quantity} ${product} ordered from supplier.`);
+  };
+  return { addToCart, cart, totalPrice, totalQuantity };
+})();
+
+ShoppingCart.addToCart('pizza', 2);
+ShoppingCart.addToCart('orange', 7);
+/*
+//EXPORT 
+export.addToCart = function (product, quantity) {
+  cart.push({ product, quantity });
+  console.log(
+    `${quantity} ${product}(e/s) added to cart. (Shipping cost is ${
+      (quantity / 10) * shippingCost
+    }$)`
+  );
+};
+// IMPORT
+const {addToCart} = require('./shoppingCart.js')
+*/
