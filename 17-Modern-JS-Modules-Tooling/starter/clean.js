@@ -16,48 +16,36 @@ const spendingLimit = Object.freeze({
   matilda: 100,
 });
 
-const getLimit = user => spendingLimit?.[user] ?? 0;
+const getLimit = (limits, user) => limits?.[user] ?? 0;
 
-const addExpense = function (
-  state,
-  limits,
-  value,
-  description,
-  user = 'jonas'
-) {
+//prettier-ignore
+const addExpense = function (state, limits, value, description, user = 'jonas') {
   const cleanUser = user.toLowerCase();
-  return value <= getLimit(cleanUser)
+  return value <= getLimit(limits, cleanUser)
     ? [...state, { value: -value, description, user: cleanUser }]
     : state;
 };
 const newBudget1 = addExpense(budget, spendingLimit, 10, 'Pizza 🍕');
-const newBudget2 = addExpense(
-  newBudget1,
-  spendingLimit,
-  100,
-  'Going to movies 🍿',
-  'Matilda'
-);
+//prettier-ignore
+const newBudget2 = addExpense(newBudget1, spendingLimit, 100, 'Movies 🍿','Matilda');
 const newBudget3 = addExpense(newBudget2, spendingLimit, 200, 'Stuff', 'Jay');
 console.log(budget);
 
-const checkExpense = function () {
-  for (const entry of budget)
-    if (entry.value < -getLimit(entry.user)) entry.flag = 'limit';
+const checkExpense = (state, limits) =>
+  state.map(entry =>
+    entry.value < -getLimit(limits, entry.user)
+      ? { ...entry, flag: 'limit' }
+      : entry
+  );
+
+const overLimits = checkExpense(newBudget3, spendingLimit);
+console.log(overLimits);
+
+const logBigExpenses = function (state, bigLimit) {
+  return (bigExpenses = state
+    .filter(entry => entry.value <= -bigLimit)
+    .map(entry => entry.description.slice(-2))
+    .join(' / '));
 };
-
-console.log(newBudget1, newBudget2, newBudget3);
-checkExpense();
-
-console.log(budget);
-
-const logBigExpenses = function (bigLimit) {
-  let output = '';
-  for (const entry of budget)
-    output +=
-      entry.value <= -bigLimit ? `${entry.description.slice(-2)} / ` : '';
-
-  output = output.slice(0, -2);
-  console.log(output);
-};
-logBigExpenses(1000);
+const itemsOverSetExpense = logBigExpenses(overLimits, 1000);
+console.log(itemsOverSetExpense);
