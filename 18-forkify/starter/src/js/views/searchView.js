@@ -1,8 +1,11 @@
-class SearchView {
+import View from './View';
+
+class SearchView extends View {
   _parentElement = document.querySelector('.search');
 
   getQuery() {
     const value = this._parentElement.querySelector('.search__field').value;
+    if (!value) return;
     this._clearInput();
     return value;
   }
