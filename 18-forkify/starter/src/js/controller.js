@@ -8,19 +8,21 @@ import paginationView from './views/paginationView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
 
 const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
-    console.log(id);
 
     if (!id) return;
     recipeView.renderSpinner();
+
+    //0) Update class to selected recipe
+    resultsView.update(model.getSearchResultsPage());
 
     //1) Loading recipe
     await model.loadRecipe(id);
@@ -41,13 +43,12 @@ const controlSearchResults = async function () {
 
     //1) Loading array of results
     await model.loadSearchResult(query);
-    console.log(model.state.search.results);
 
     //2) Clearing main window
     document.querySelector('.recipe').innerHTML = '';
 
     //3) Rendering list of results
-    resultsView.render(model.getSearchResultsPage(2));
+    resultsView.render(model.getSearchResultsPage());
 
     //4) render initial paginiation button/s
     paginationView.render(model.state.search);
@@ -66,7 +67,8 @@ const controlPagination = function (page) {
 
 const controlServings = function (newServings) {
   model.updateServings(newServings);
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 const init = function () {
