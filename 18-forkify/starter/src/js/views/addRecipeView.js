@@ -3,6 +3,7 @@ import icons from 'url:../../img/icons.svg';
 
 class AddRecipeView extends View {
   _parentElement = document.querySelector('.upload');
+  _successMessage = 'Recipe successfully uploaded!';
 
   _windowElement = document.querySelector('.add-recipe-window');
   _overlayElement = document.querySelector('.overlay');
@@ -15,31 +16,27 @@ class AddRecipeView extends View {
     this._addHandlerHideWindow();
   }
 
-  _toggleWindow() {
+  toggleWindow() {
     this._overlayElement.classList.toggle('hidden');
     this._windowElement.classList.toggle('hidden');
   }
 
   _addHandlerShowWindow() {
-    this._btnAddRecipe.addEventListener('click', this._toggleWindow.bind(this));
+    this._btnAddRecipe.addEventListener('click', this.toggleWindow.bind(this));
   }
 
   _addHandlerHideWindow() {
-    this._btnCloseModal.addEventListener(
-      'click',
-      this._toggleWindow.bind(this)
-    );
+    this._btnCloseModal.addEventListener('click', this.toggleWindow.bind(this));
   }
 
   _addHandlerUpload(handler) {
     this._parentElement.addEventListener('submit', function (e) {
       e.preventDefault();
-      const data = [...new FormData(this)];
+      const dataArr = [...new FormData(this)];
+      const data = Object.fromEntries(dataArr);
       handler(data);
     });
   }
-
-  _generateHTML() {}
 }
 
 export default new AddRecipeView();

@@ -67,6 +67,8 @@ export default class View {
             </div>
             <p>${message}</p>
           </div>`;
+    this._clearParentHTML();
+    this._parentElement.insertAdjacentHTML('afterbegin', html);
   }
 
   renderError(message = this._errorMessage) {
