@@ -108,6 +108,12 @@ const controlAddRecipe = async function (newRecipe) {
     //Rendering success message
     addRecipeView.renderSuccess();
 
+    //Render bookmark view
+    bookmarksView.render(model.state.bookmarks);
+
+    //Change ID in URL
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
     //Closing form window
     setTimeout(function () {
       addRecipeView.toggleWindow();
@@ -125,6 +131,5 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView._addHandlerUpload(controlAddRecipe);
-  model.clearBookmarks();
 };
 init();
